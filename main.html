@@ -13,6 +13,201 @@
     }
   </style>
 </head>
+
+<style>
+    :root {
+      --cream: #f3e9cd;
+      --green: #477653;
+      --green-dark: #14552f;
+      --field: #fff;
+      --text: #284b35;
+      --focus: #8aaa79;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: clamp(24px, 6vw, 64px) 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: var(--cream);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .profile-form {
+      width: min(100%, 560px);
+    }
+
+    .field-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--green);
+      font-size: clamp(1.35rem, 4vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      min-height: 47px;
+      padding: 9px 16px;
+      border: 2px solid var(--green-dark);
+      border-radius: 11px;
+      outline: none;
+      background: var(--field);
+      color: var(--green);
+      font: 700 1.2rem/1.25 Arial, Helvetica, sans-serif;
+      text-align: center;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    input:hover {
+      border-color: var(--green);
+    }
+
+    input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgb(71 118 83 / 17%);
+    }
+
+    input[aria-invalid="true"] {
+      border-color: #b64a3d;
+      background: #fffafa;
+    }
+
+    .message {
+      min-height: 1.2em;
+      margin: 6px 2px 0;
+      color: #a33c32;
+      font: 500 .85rem/1.3 Arial, Helvetica, sans-serif;
+    }
+
+    .status {
+      margin-top: 4px;
+      color: var(--green-dark);
+      font: 500 .9rem/1.4 Arial, Helvetica, sans-serif;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 28px 18px; }
+      .field-group { margin-bottom: 19px; }
+      input {
+        min-height: 46px;
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="profile-form">
+    <form id="userForm" autocomplete="on" novalidate>
+      <div class="field-group">
+        <label for="username">Nombre de usuario:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="GreenDrew"
+          placeholder="Escribe tu nombre de usuario"
+          autocomplete="username"
+          minlength="3"
+          maxlength="20"
+          required
+          aria-describedby="usernameMessage"
+        >
+        <p class="message" id="usernameMessage" aria-live="polite"></p>
+      </div>
+
+      <div class="field-group">
+        <label for="fullName">Nombre y Apellidos</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          value="Andrew Valdivia"
+          placeholder="Escribe tu nombre y apellidos"
+          autocomplete="name"
+          maxlength="60"
+          required
+          aria-describedby="fullNameMessage"
+        >
+        <p class="message" id="fullNameMessage" aria-live="polite"></p>
+      </div>
+
+      <p class="status" id="formStatus" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("userForm");
+
+    const fields = [
+      {
+        input: document.getElementById("username"),
+        message: document.getElementById("usernameMessage"),
+        validate(value) {
+          if (!value.trim()) return "El nombre de usuario es obligatorio.";
+          if (value.trim().length < 3) return "Debe tener al menos 3 caracteres.";
+          if (!/^[a-zA-Z0-9_.-]+$/.test(value.trim())) {
+            return "Usa solo letras, números, puntos, guiones o guiones bajos.";
+          }
+          return "";
+        }
+      },
+      {
+        input: document.getElementById("fullName"),
+        message: document.getElementById("fullNameMessage"),
+        validate(value) {
+          if (!value.trim()) return "El nombre y los apellidos son obligatorios.";
+          if (value.trim().length < 5) return "Introduce un nombre más completo.";
+          return "";
+        }
+      }
+    ];
+
+    function validateField(field) {
+      const error = field.validate(field.input.value);
+      field.message.textContent = error;
+      field.input.setAttribute("aria-invalid", String(Boolean(error)));
+      return !error;
+    }
+
+    fields.forEach((field) => {
+      field.input.addEventListener("input", () => {
+        validateField(field);
+        document.getElementById("formStatus").textContent = "";
+      });
+
+      field.input.addEventListener("blur", () => validateField(field));
+    });
+
+    // La validación también puede ejecutarse desde otros controles
+    // si posteriormente se añade un botón de envío al formulario.
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const isValid = fields.map(validateField).every(Boolean);
+      document.getElementById("formStatus").textContent = isValid
+        ? "Los datos son válidos."
+        : "Revisa los campos indicados.";
+    });
+  </script>
+
 <body>
 </body>
 </html>
