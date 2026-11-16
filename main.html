@@ -1,18 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página en blanco</title>
-  <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      background-color: #F3E8CC;
-    }
-  </style>
-</head>
-<body>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesión</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        min-height: 100%;
+        background-color: #f3e8cc;
+      }
+
+      .contenedor {
+        display: flex;
+        justify-content: center;
+        padding-top: 16px;
+      }
+
+      .boton-login {
+        width: 80%;
+        max-width: 475px;
+        height: 40px;
+        background-color: #14532d;
+        color: white;
+        border: none;
+        border-radius: 9px;
+        font-family: Georgia, serif;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .boton-login:hover {
+        background-color: #0f4022;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <button class="boton-login">Iniciar sesión</button>
+    </div>
+  </body>
 </html>
