@@ -1,37 +1,193 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrarse</title>
+  <title>Iniciar sesión | Rakinakuy</title>
+
   <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      background-color: #F3E8CC;
+    * {
+      box-sizing: border-box;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
-      min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: #F3E8CC;
+      font-family: Arial, sans-serif;
+      color: #203d2c;
+    }
+
+    .login {
+      width: 420px;
+      max-width: 90%;
+      padding: 36px;
+      background: #fffdf7;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
     }
 
     h1 {
-      margin: 0;
-      color: #426E4A;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(44px, 6vw, 64px);
-      font-weight: 700;
-      line-height: 1.15;
       text-align: center;
+      color: #17633c;
+      font-family: Georgia, serif;
+      font-size: 38px;
+      margin: 0 0 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #5d6a5c;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 20px;
+      border: 1px solid #becbbb;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: 2px solid #17633c;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #17633c;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #104d2f;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #mensaje {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .error {
+      color: #b3261e;
+    }
+
+    .exito {
+      color: #17633c;
     }
   </style>
 </head>
+
 <body>
-  <h1>Registrarse</h1>
+
+  <main class="login">
+    <h1>Rakinakuy</h1>
+    <p class="subtitle">Inicia sesión para acceder a tu cuenta</p>
+
+    <form id="formLogin">
+
+      <label for="email">Correo electrónico</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="correo@ejemplo.com"
+        autocomplete="username"
+        required
+      >
+
+      <label for="contrasena">Contraseña</label>
+      <input
+        type="password"
+        id="contrasena"
+        placeholder="Ingresa tu contraseña"
+        autocomplete="current-password"
+        required
+      >
+
+      <button type="submit" id="btnLogin">
+        Iniciar sesión
+      </button>
+
+      <p id="mensaje" role="status" aria-live="polite"></p>
+
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("formLogin");
+    const mensaje = document.getElementById("mensaje");
+    const boton = document.getElementById("btnLogin");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const contrasena = document.getElementById("contrasena").value;
+
+      boton.disabled = true;
+      boton.textContent = "Verificando...";
+      mensaje.textContent = "";
+
+      try {
+        const respuesta = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            email: email,
+            contrasena: contrasena
+          })
+        });
+
+        const datos = await respuesta.json();
+
+        if (respuesta.ok) {
+          mensaje.className = "exito";
+          mensaje.textContent =
+            "Bienvenido, " + datos.usuario.nombre;
+
+          form.reset();
+        } else {
+          mensaje.className = "error";
+          mensaje.textContent =
+            datos.mensaje || "Credenciales incorrectas";
+        }
+
+      } catch (error) {
+        mensaje.className = "error";
+        mensaje.textContent =
+          "No se pudo conectar con el servidor";
+      } finally {
+        boton.disabled = false;
+        boton.textContent = "Iniciar sesión";
+      }
+    });
+  </script>
+
 </body>
 </html>
