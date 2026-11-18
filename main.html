@@ -3,26 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Iniciar sesión</title>
+    <title>Registro - Rakinakuy</title>
 
     <style>
-      html,
       body {
         margin: 0;
-        width: 100%;
-        min-height: 100%;
         background-color: #f3e8cc;
+        font-family: Georgia, serif;
       }
 
       .contenedor {
         display: flex;
         justify-content: center;
-        padding-top: 16px;
+        padding-top: 40px;
+      }
+
+      .formulario {
+        width: 80%;
+        max-width: 475px;
+      }
+
+      input {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        border: 1px solid #aaa;
+        border-radius: 9px;
+      }
+
+      .campo {
+        margin-bottom: 18px;
+      }
+
+      .mensaje-error {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
       }
 
       .boton-login {
-        width: 80%;
-        max-width: 475px;
+        width: 100%;
         height: 40px;
         background-color: #14532d;
         color: white;
@@ -42,7 +64,52 @@
 
   <body>
     <div class="contenedor">
-      <button class="boton-login">Iniciar sesión</button>
+      <form class="formulario" id="formRegistro">
+        <h2>Registro de usuario</h2>
+
+        <div class="campo">
+          <label for="usuario">Nombre de usuario</label>
+          <input type="text" id="usuario" required />
+          <p id="errorUsuario" class="mensaje-error" role="alert"></p>
+        </div>
+
+        <div class="campo">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" required />
+        </div>
+
+        <div class="campo">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" required />
+        </div>
+
+        <button type="submit" class="boton-login">Registrarse</button>
+      </form>
     </div>
+
+    <script>
+      // Usuarios de ejemplo para probar R-06.
+      const usuariosExistentes = ["admin", "tatiana", "juan"];
+
+      const formulario = document.getElementById("formRegistro");
+      const usuario = document.getElementById("usuario");
+      const errorUsuario = document.getElementById("errorUsuario");
+
+      formulario.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+
+        const nombre = usuario.value.trim().toLowerCase();
+
+        if (usuariosExistentes.includes(nombre)) {
+          errorUsuario.textContent =
+            "Este nombre de usuario ya existe. Elige otro.";
+        } else {
+          errorUsuario.textContent = "";
+        }
+
+        // No se reinicia el formulario.
+        // Los otros campos conservan sus datos.
+      });
+    </script>
   </body>
 </html>
