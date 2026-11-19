@@ -3,19 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro - Rakinakuy</title>
+    <title>Rakinakuy</title>
 
     <style>
+      html,
       body {
         margin: 0;
+        width: 100%;
+        min-height: 100%;
         background-color: #f3e8cc;
         font-family: Georgia, serif;
       }
 
+      /* FORMULARIO DE REGISTRO */
+
       .contenedor {
         display: flex;
         justify-content: center;
-        padding-top: 40px;
+        padding: 40px 16px;
       }
 
       .formulario {
@@ -23,19 +28,30 @@
         max-width: 475px;
       }
 
-      input {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
-        padding: 12px;
-        margin-top: 8px;
-        border: 1px solid #aaa;
-        border-radius: 9px;
+      .formulario h2 {
+        color: #14532d;
       }
 
       .campo {
         margin-bottom: 18px;
       }
+
+      .campo label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .campo input {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #aaa;
+        border-radius: 9px;
+        font-family: Georgia, serif;
+      }
+
+      /* R-06: MENSAJE DE ERROR */
 
       .mensaje-error {
         color: red;
@@ -59,10 +75,34 @@
       .boton-login:hover {
         background-color: #0f4022;
       }
+
+      /* NUEVA TAREA: PRODUCTOS POPULARES */
+
+      .productos-populares {
+        background-color: #f3e8cc;
+        padding: 50px 20px;
+        text-align: center;
+      }
+
+      .productos-populares h2 {
+        font-family: Georgia, serif;
+        font-size: 48px;
+        font-weight: bold;
+        color: #4e7051;
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        .productos-populares h2 {
+          font-size: 32px;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <!-- R-06: REGISTRO Y MANEJO DE ERRORES -->
+
     <div class="contenedor">
       <form class="formulario" id="formRegistro">
         <h2>Registro de usuario</h2>
@@ -87,8 +127,16 @@
       </form>
     </div>
 
+    <!-- NUEVA TAREA: PRODUCTOS POPULARES -->
+
+    <section class="productos-populares">
+      <h2>Productos Populares</h2>
+    </section>
+
+    <!-- JAVASCRIPT R-06 -->
+
     <script>
-      // Usuarios de ejemplo para probar R-06.
+      // Usuarios de ejemplo para probar el manejo de errores
       const usuariosExistentes = ["admin", "tatiana", "juan"];
 
       const formulario = document.getElementById("formRegistro");
@@ -107,8 +155,8 @@
           errorUsuario.textContent = "";
         }
 
+        // Mantiene los datos de los demás campos.
         // No se reinicia el formulario.
-        // Los otros campos conservan sus datos.
       });
     </script>
   </body>
