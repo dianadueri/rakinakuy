@@ -1,18 +1,76 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página en blanco</title>
+  <title>Rakinakuy - Inicio</title>
+
   <style>
     html, body {
       margin: 0;
+      padding: 0;
       width: 100%;
       min-height: 100%;
       background-color: #F3E8CC;
     }
+
+    .banner {
+      width: 100%;
+      position: relative;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .boton {
+      position: absolute;
+      left: 8.5%;
+      top: 72%;
+      width: 29%;
+      height: 10%;
+      cursor: pointer;
+    }
+
+    .boton:focus-visible {
+      outline: 3px solid #185B35;
+    }
+
+    @media (max-width: 600px) {
+      .boton {
+        left: 8%;
+        top: 72%;
+        width: 30%;
+        height: 10%;
+      }
+    }
   </style>
 </head>
+
 <body>
+
+  <main>
+    <section class="banner">
+
+      <img
+        src="images/banner.png"
+        alt="Descubre tu nueva vida saludable. Encuentra productos a precios justos."
+      >
+
+      <a
+        href="#autenticacion"
+        class="boton"
+        aria-label="Iniciar sesión o registrarse"
+      ></a>
+
+    </section>
+
+    <section id="autenticacion">
+    </section>
+  </main>
+
 </body>
 </html>
