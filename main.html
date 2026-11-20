@@ -76,7 +76,7 @@
         background-color: #0f4022;
       }
 
-      /* NUEVA TAREA: PRODUCTOS POPULARES */
+      /* PRODUCTOS POPULARES */
 
       .productos-populares {
         background-color: #f3e8cc;
@@ -92,9 +92,81 @@
         margin: 0;
       }
 
+      /* DISTRIBUCION DE PRODUCTOS */
+
+      .lista-productos {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        max-width: 932px;
+        margin: 50px auto 0;
+      }
+
+      /* TARJETAS DE PRODUCTOS */
+
+      .tarjeta-producto {
+        background-color: white;
+        border-radius: 25px;
+        padding: 16px;
+        text-align: left;
+        min-width: 0;
+      }
+
+      /* IMAGENES */
+
+      .tarjeta-producto img {
+        display: block;
+        width: 100%;
+        height: 95px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      /* NOMBRE DEL PRODUCTO */
+
+      .tarjeta-producto h3 {
+        color: #285637;
+        font-family: Georgia, serif;
+        font-size: 19px;
+        margin: 8px 0 5px;
+      }
+
+      /* PRODUCTOR Y PRECIO */
+
+      .info-producto {
+        background-color: #52765b;
+        color: white;
+        border-radius: 9px;
+        padding: 12px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .info-producto span {
+        white-space: nowrap;
+      }
+
+      /* DISEÑO RESPONSIVE */
+
+      @media (max-width: 800px) {
+        .lista-productos {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
       @media (max-width: 600px) {
         .productos-populares h2 {
           font-size: 32px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .lista-productos {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -127,10 +199,76 @@
       </form>
     </div>
 
-    <!-- NUEVA TAREA: PRODUCTOS POPULARES -->
+    <!-- PRODUCTOS POPULARES -->
 
     <section class="productos-populares">
       <h2>Productos Populares</h2>
+
+      <div class="lista-productos">
+        <!-- MANZANA -->
+
+        <div class="tarjeta-producto">
+          <img
+            src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"
+            alt="Manzana"
+          />
+
+          <h3>Manzana</h3>
+
+          <div class="info-producto">
+            <span>GRANJA RAMIREZ</span>
+            <span>4 Bs</span>
+          </div>
+        </div>
+
+        <!-- BANANA -->
+
+        <div class="tarjeta-producto">
+          <img
+            src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400"
+            alt="Banana"
+          />
+
+          <h3>Banana</h3>
+
+          <div class="info-producto">
+            <span>GRANJA RAMIREZ</span>
+            <span>4 Bs</span>
+          </div>
+        </div>
+
+        <!-- NARANJA -->
+
+        <div class="tarjeta-producto">
+          <img
+            src="https://images.unsplash.com/photo-1547514701-42782101795e?w=400"
+            alt="Naranja"
+          />
+
+          <h3>Naranja</h3>
+
+          <div class="info-producto">
+            <span>GRANJA RAMIREZ</span>
+            <span>4 Bs</span>
+          </div>
+        </div>
+
+        <!-- LIMON -->
+
+        <div class="tarjeta-producto">
+          <img
+            src="https://images.unsplash.com/photo-1590502593747-42a996133562?w=400"
+            alt="Limón"
+          />
+
+          <h3>Limón</h3>
+
+          <div class="info-producto">
+            <span>GRANJA RAMIREZ</span>
+            <span>4 Bs</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- JAVASCRIPT R-06 -->
