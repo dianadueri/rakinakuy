@@ -59,6 +59,8 @@
         margin-top: 5px;
       }
 
+      /* BOTON REGISTRARSE */
+
       .boton-login {
         width: 100%;
         height: 40px;
@@ -70,10 +72,11 @@
         font-size: 18px;
         font-weight: bold;
         cursor: pointer;
+        transition: background-color 0.3s;
       }
 
       .boton-login:hover {
-        background-color: #0f4022;
+        background-color: gray;
       }
 
       /* PRODUCTOS POPULARES */
@@ -150,6 +153,69 @@
         white-space: nowrap;
       }
 
+      /* CONTROLES DE CANTIDAD */
+
+      .controles-compra {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+      }
+
+      .cantidad {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .numero-cantidad {
+        font-size: 26px;
+        font-weight: bold;
+        color: black;
+        min-width: 18px;
+        text-align: center;
+      }
+
+      /* BOTONES DE CANTIDAD */
+
+      .boton-cantidad {
+        background-color: #f5c542;
+        color: #285637;
+        border: none;
+        border-radius: 10px;
+        width: 25px;
+        height: 38px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .boton-cantidad:hover {
+        background-color: #cccccc;
+      }
+
+      /* BOTON COMPRAR */
+
+      .boton-comprar {
+        background-color: #285637;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 8px;
+        font-family: Georgia, serif;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      /* HOVER VERDE A GRIS */
+
+      .boton-comprar:hover {
+        background-color: gray;
+      }
+
       /* DISEÑO RESPONSIVE */
 
       @media (max-width: 800px) {
@@ -219,6 +285,16 @@
             <span>GRANJA RAMIREZ</span>
             <span>4 Bs</span>
           </div>
+
+          <div class="controles-compra">
+            <div class="cantidad">
+              <button type="button" class="boton-cantidad sumar">+</button>
+              <span class="numero-cantidad">0</span>
+              <button type="button" class="boton-cantidad restar">−</button>
+            </div>
+
+            <button type="button" class="boton-comprar">Comprar</button>
+          </div>
         </div>
 
         <!-- BANANA -->
@@ -234,6 +310,16 @@
           <div class="info-producto">
             <span>GRANJA RAMIREZ</span>
             <span>4 Bs</span>
+          </div>
+
+          <div class="controles-compra">
+            <div class="cantidad">
+              <button type="button" class="boton-cantidad sumar">+</button>
+              <span class="numero-cantidad">0</span>
+              <button type="button" class="boton-cantidad restar">−</button>
+            </div>
+
+            <button type="button" class="boton-comprar">Comprar</button>
           </div>
         </div>
 
@@ -251,6 +337,16 @@
             <span>GRANJA RAMIREZ</span>
             <span>4 Bs</span>
           </div>
+
+          <div class="controles-compra">
+            <div class="cantidad">
+              <button type="button" class="boton-cantidad sumar">+</button>
+              <span class="numero-cantidad">0</span>
+              <button type="button" class="boton-cantidad restar">−</button>
+            </div>
+
+            <button type="button" class="boton-comprar">Comprar</button>
+          </div>
         </div>
 
         <!-- LIMON -->
@@ -267,14 +363,25 @@
             <span>GRANJA RAMIREZ</span>
             <span>4 Bs</span>
           </div>
+
+          <div class="controles-compra">
+            <div class="cantidad">
+              <button type="button" class="boton-cantidad sumar">+</button>
+              <span class="numero-cantidad">0</span>
+              <button type="button" class="boton-cantidad restar">−</button>
+            </div>
+
+            <button type="button" class="boton-comprar">Comprar</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- JAVASCRIPT R-06 -->
+    <!-- JAVASCRIPT -->
 
     <script>
-      // Usuarios de ejemplo para probar el manejo de errores
+      /* R-06: MANEJO DE ERRORES */
+
       const usuariosExistentes = ["admin", "tatiana", "juan"];
 
       const formulario = document.getElementById("formRegistro");
@@ -294,7 +401,32 @@
         }
 
         // Mantiene los datos de los demás campos.
-        // No se reinicia el formulario.
+      });
+
+      /* CONTROLES DE CANTIDAD */
+
+      const tarjetas = document.querySelectorAll(".tarjeta-producto");
+
+      tarjetas.forEach(function (tarjeta) {
+        const botonSumar = tarjeta.querySelector(".sumar");
+        const botonRestar = tarjeta.querySelector(".restar");
+        const numeroCantidad = tarjeta.querySelector(".numero-cantidad");
+
+        let cantidad = 0;
+
+        // Aumentar cantidad
+        botonSumar.addEventListener("click", function () {
+          cantidad = cantidad + 1;
+          numeroCantidad.textContent = cantidad;
+        });
+
+        // Disminuir cantidad sin bajar de cero
+        botonRestar.addEventListener("click", function () {
+          if (cantidad > 0) {
+            cantidad = cantidad - 1;
+            numeroCantidad.textContent = cantidad;
+          }
+        });
       });
     </script>
   </body>
