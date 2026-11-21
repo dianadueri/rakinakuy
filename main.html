@@ -1,18 +1,460 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página en blanco</title>
-  <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      background-color: #F3E8CC;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakinakuy - Registro</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+            background-color: #F3E8CC;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ===== CABECERA (R-05) ===== */
+        .header {
+            width: 100%;
+            background-color: #2F5D3A;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s;
+        }
+
+        .header-btn:hover {
+            background-color: #D9D9D9;
+            color: #555;
+        }
+
+        .header-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #F3E8CC;
+        }
+
+        /* Botón de idioma: verde -> gris al pasar el mouse */
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s;
+        }
+
+        .lang-btn:hover,
+        .lang-btn:focus-visible {
+            background-color: #D9D9D9;
+            color: #555;
+            outline: none;
+        }
+
+        .lang-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ===== CONTENIDO ===== */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            gap: 32px;
+        }
+
+        .avatar-container {
+            text-align: center;
+        }
+
+        .avatar-upload {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed #777;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .avatar-upload:hover {
+            border-color: #333;
+        }
+
+        .upload-icon {
+            width: 42px;
+            height: 42px;
+            color: #555;
+        }
+
+        .avatar-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        #avatar-input {
+            display: none;
+        }
+
+        .avatar-text {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        /* ===== FORMULARIO DE LOGIN (R-07) ===== */
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-title {
+            margin: 0 0 24px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2F5D3A;
+            text-align: center;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2F5D3A;
+            margin-bottom: 6px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #222;
+            background-color: #FFFFFF;
+            border: 1px solid #8A8A8A;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .field input:focus {
+            border-color: #2F5D3A;
+            box-shadow: 0 0 0 2px rgba(47, 93, 58, 0.2);
+        }
+
+        .btn-login {
+            margin-top: 6px;
+            padding: 11px 16px;
+            font-size: 14px;
+            font-family: inherit;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #2F5D3A;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-login:hover {
+            background-color: #26492E;
+        }
+
+        .btn-login:active {
+            background-color: #1D3A24;
+        }
+    </style>
 </head>
+
 <body>
+
+    <!-- ===== CABECERA ===== -->
+    <header class="header">
+
+        <button type="button" class="header-btn" aria-label="Carrito de compras">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="20" r="1.5"/>
+                <circle cx="18" cy="20" r="1.5"/>
+                <path d="M2 3h3l2.4 11.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/>
+            </svg>
+        </button>
+
+        <img class="avatar-small"
+             src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=80&h=80&fit=crop"
+             alt="Foto de perfil del usuario">
+
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Cambiar idioma">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5h9"/>
+                <path d="M8.5 3v2"/>
+                <path d="M11 5c0 4-3 7-7 8"/>
+                <path d="M6 9c1 2.5 3 4.5 5.5 5.5"/>
+                <path d="m13 21 4-10 4 10"/>
+                <path d="M14.5 17.5h5"/>
+            </svg>
+            <span id="lang-label">ESPAÑOL</span>
+        </button>
+
+    </header>
+
+    <!-- ===== CONTENIDO ===== -->
+    <main class="main">
+
+        <!-- Foto de perfil -->
+        <div class="avatar-container">
+
+            <label for="avatar-input" class="avatar-upload"
+                   id="avatar-label"
+                   aria-label="Seleccionar foto de perfil">
+
+                <svg class="upload-icon" id="upload-icon"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+
+                    <path d="M12 16V4"/>
+                    <path d="m7 9 5-5 5 5"/>
+                    <path d="M20 16.5v3a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-3"/>
+                </svg>
+
+                <img id="avatar-preview"
+                     class="avatar-preview"
+                     alt="Vista previa de la foto de perfil">
+
+            </label>
+
+            <input
+                type="file"
+                id="avatar-input"
+                accept="image/*"
+            >
+
+            <p class="avatar-text" id="avatar-text">Selecciona tu foto de perfil</p>
+
+        </div>
+
+        <!-- Formulario de inicio de sesión (R-07) -->
+        <section class="login-card">
+
+            <h1 class="login-title" id="login-title">Iniciar sesión</h1>
+
+            <form class="login-form" id="login-form" novalidate>
+
+                <div class="field">
+                    <label for="usuario" id="label-usuario">Nombre de usuario:</label>
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="contrasena" id="label-contrasena">Contraseña:</label>
+                    <input
+                        type="password"
+                        id="contrasena"
+                        name="contrasena"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn-login" id="btn-login">Iniciar sesión</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script>
+        /* ---------- TEXTOS EN LOS TRES IDIOMAS ---------- */
+        const traducciones = {
+            es: {
+                boton: "ESPAÑOL",
+                titulo: "Iniciar sesión",
+                etiquetaUsuario: "Nombre de usuario:",
+                etiquetaContrasena: "Contraseña:",
+                botonLogin: "Iniciar sesión",
+                textoAvatar: "Selecciona tu foto de perfil",
+                etiquetaAvatar: "Seleccionar foto de perfil",
+                alertaImagen: "Por favor, selecciona una imagen válida.",
+                alertaVacio: "Por favor, completa tu nombre de usuario y contraseña."
+            },
+            qu: {
+                boton: "QUECHUA",
+                titulo: "Yaykuy",
+                etiquetaUsuario: "Sutiyki:",
+                etiquetaContrasena: "Pakasqa simi:",
+                botonLogin: "Yaykuy",
+                textoAvatar: "Akllay qhawachikuyniykita",
+                etiquetaAvatar: "Akllay qhawachikuyniykita",
+                alertaImagen: "Akllay huk valida siq'i.",
+                alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita."
+            },
+            ay: {
+                boton: "AYMARA",
+                titulo: "Mantaña",
+                etiquetaUsuario: "Sutima:",
+                etiquetaContrasena: "Imantaña aru:",
+                botonLogin: "Mantaña",
+                textoAvatar: "Ajllita qhawachawi",
+                etiquetaAvatar: "Ajllita qhawachawi",
+                alertaImagen: "Ajllita huk valida samana.",
+                alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru."
+            }
+        };
+
+        const ordenIdiomas = ["es", "qu", "ay"];
+        let idiomaActual = 0;
+
+        const langBtn = document.getElementById("lang-btn");
+        const langLabel = document.getElementById("lang-label");
+        const avatarText = document.getElementById("avatar-text");
+        const avatarLabel = document.getElementById("avatar-label");
+        const loginTitle = document.getElementById("login-title");
+        const labelUsuario = document.getElementById("label-usuario");
+        const labelContrasena = document.getElementById("label-contrasena");
+        const btnLogin = document.getElementById("btn-login");
+
+        /* ---------- CAMBIAR TEXTOS EN TIEMPO REAL ---------- */
+        function aplicarIdioma(codigo) {
+            const t = traducciones[codigo];
+
+            document.documentElement.lang = codigo;
+            langLabel.textContent = t.boton;
+            loginTitle.textContent = t.titulo;
+            labelUsuario.textContent = t.etiquetaUsuario;
+            labelContrasena.textContent = t.etiquetaContrasena;
+            btnLogin.textContent = t.botonLogin;
+            avatarText.textContent = t.textoAvatar;
+            avatarLabel.setAttribute("aria-label", t.etiquetaAvatar);
+        }
+
+        langBtn.addEventListener("click", function () {
+            idiomaActual = (idiomaActual + 1) % ordenIdiomas.length;
+            aplicarIdioma(ordenIdiomas[idiomaActual]);
+        });
+
+        /* ---------- Foto de perfil ---------- */
+        const avatarInput = document.getElementById("avatar-input");
+        const avatarPreview = document.getElementById("avatar-preview");
+        const uploadIcon = document.getElementById("upload-icon");
+
+        avatarInput.addEventListener("change", function (event) {
+
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert(traducciones[ordenIdiomas[idiomaActual]].alertaImagen);
+                return;
+            }
+
+            const imageURL = URL.createObjectURL(file);
+
+            avatarPreview.src = imageURL;
+            avatarPreview.style.display = "block";
+            uploadIcon.style.display = "none";
+        });
+
+        /* ---------- Validación del login ---------- */
+        const loginForm = document.getElementById("login-form");
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const usuario = document.getElementById("usuario").value.trim();
+            const contrasena = document.getElementById("contrasena").value;
+
+            if (!usuario || !contrasena) {
+                alert(traducciones[ordenIdiomas[idiomaActual]].alertaVacio);
+                return;
+            }
+
+            console.log("Intento de inicio de sesión:", usuario);
+        });
+    </script>
+
 </body>
 </html>
