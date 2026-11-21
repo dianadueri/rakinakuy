@@ -3,18 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página en blanco</title>
+  <title>Iniciar sesión</title>
   <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      background-color: #F3E8CC;
-    }
-  </style>
-</head>
-
-<style>
     :root {
       --cream: #f3e9cd;
       --green: #477653;
@@ -97,6 +87,49 @@
       font: 500 .9rem/1.4 Arial, Helvetica, sans-serif;
     }
 
+    /* Campo de contraseña */
+    input[type="password"] {
+      letter-spacing: 3px;
+    }
+
+    /* Mensaje de contraseña válido */
+    .message.success {
+      color: #24733c;
+    }
+
+    /* Mensaje de contraseña incorrecto */
+    .message.error {
+      color: #b42318;
+    }
+
+    /* Botón de iniciar sesión */
+    .login-button {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin-top: 15px;
+      background-color: #477653;
+      color: white;
+      border: 2px solid #14552f;
+      border-radius: 11px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Cambiar de verde a gris al pasar el cursor */
+    .login-button:hover {
+      background-color: #858585;
+      border-color: #858585;
+    }
+
+    /* Estado de carga */
+    .login-button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
     @media (max-width: 480px) {
       body { padding: 28px 18px; }
       .field-group { margin-bottom: 19px; }
@@ -116,6 +149,7 @@
 </head>
 <body>
   <main class="profile-form">
+    <!-- Todo dentro de <form id="userForm"> para que el botón submit active la validación -->
     <form id="userForm" autocomplete="on" novalidate>
       <div class="field-group">
         <label for="username">Nombre de usuario:</label>
@@ -150,64 +184,207 @@
         <p class="message" id="fullNameMessage" aria-live="polite"></p>
       </div>
 
+      <!-- Campo de contraseña -->
+      <div class="field-group">
+        <label for="password">Contraseña:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Escribe tu contraseña"
+          autocomplete="current-password"
+          required
+          aria-describedby="passwordMessage"
+        >
+        <p class="message" id="passwordMessage" aria-live="polite">
+          La contraseña debe tener al menos 8 caracteres, un número y un carácter especial.
+        </p>
+      </div>
+
       <p class="status" id="formStatus" role="status" aria-live="polite"></p>
+
+      <!-- Botón de inicio de sesión -->
+      <button
+        type="submit"
+        class="login-button"
+        id="loginButton"
+      >
+        Iniciar sesión
+      </button>
     </form>
   </main>
 
+  <!-- El <script> va al final del <body> para que el DOM ya exista al ejecutarse -->
   <script>
     const form = document.getElementById("userForm");
 
+    const passwordInput = document.getElementById("password");
+    const passwordMessage = document.getElementById("passwordMessage");
+    const loginButton = document.getElementById("loginButton");
+    const formStatus = document.getElementById("formStatus");
+
+    // Campos del formulario
     const fields = [
       {
         input: document.getElementById("username"),
         message: document.getElementById("usernameMessage"),
+
         validate(value) {
-          if (!value.trim()) return "El nombre de usuario es obligatorio.";
-          if (value.trim().length < 3) return "Debe tener al menos 3 caracteres.";
-          if (!/^[a-zA-Z0-9_.-]+$/.test(value.trim())) {
-            return "Usa solo letras, números, puntos, guiones o guiones bajos.";
+          if (!value.trim()) {
+            return "El nombre de usuario es obligatorio.";
           }
+
+          if (value.trim().length < 3) {
+            return "Debe tener al menos 3 caracteres.";
+          }
+
+          if (!/^[a-zA-Z0-9_.-]+$/.test(value.trim())) {
+            return "Usa solo letras, números, puntos y guiones.";
+          }
+
           return "";
         }
       },
+
       {
         input: document.getElementById("fullName"),
         message: document.getElementById("fullNameMessage"),
+
         validate(value) {
-          if (!value.trim()) return "El nombre y los apellidos son obligatorios.";
-          if (value.trim().length < 5) return "Introduce un nombre más completo.";
+          if (!value.trim()) {
+            return "El nombre y los apellidos son obligatorios.";
+          }
+
+          if (value.trim().length < 5) {
+            return "Introduce un nombre más completo.";
+          }
+
           return "";
         }
       }
     ];
 
+    // Validar nombre de usuario y nombre completo
     function validateField(field) {
       const error = field.validate(field.input.value);
+
       field.message.textContent = error;
-      field.input.setAttribute("aria-invalid", String(Boolean(error)));
+
+      field.input.setAttribute(
+        "aria-invalid",
+        String(Boolean(error))
+      );
+
       return !error;
     }
 
+    // VALIDACIÓN DE CONTRASEÑA
+    function validatePassword() {
+      const password = passwordInput.value;
+
+      // Comprobar los requisitos
+      const hasLength = password.length >= 8;
+      const hasNumber = /\d/.test(password);
+      const hasSpecial = /[^A-Za-z0-9]/.test(password);
+
+      const isValid = hasLength && hasNumber && hasSpecial;
+
+      if (isValid) {
+        passwordMessage.textContent =
+          "¡Contraseña válida! Cumple todos los requisitos.";
+
+        passwordMessage.classList.remove("error");
+        passwordMessage.classList.add("success");
+
+        passwordInput.setAttribute("aria-invalid", "false");
+      } else {
+        const errors = [];
+
+        if (!hasLength) {
+          errors.push("mínimo 8 caracteres");
+        }
+
+        if (!hasNumber) {
+          errors.push("un número");
+        }
+
+        if (!hasSpecial) {
+          errors.push("un carácter especial");
+        }
+
+        passwordMessage.textContent =
+          "Contraseña incorrecta: falta " + errors.join(", ") + ".";
+
+        passwordMessage.classList.remove("success");
+        passwordMessage.classList.add("error");
+
+        passwordInput.setAttribute("aria-invalid", "true");
+      }
+
+      return isValid;
+    }
+
+    // Validación automática de los campos
     fields.forEach((field) => {
       field.input.addEventListener("input", () => {
         validateField(field);
-        document.getElementById("formStatus").textContent = "";
+        formStatus.textContent = "";
       });
 
-      field.input.addEventListener("blur", () => validateField(field));
+      field.input.addEventListener("blur", () => {
+        validateField(field);
+      });
     });
 
-    // La validación también puede ejecutarse desde otros controles
-    // si posteriormente se añade un botón de envío al formulario.
+    // Validar contraseña mientras se escribe
+    passwordInput.addEventListener("input", () => {
+      validatePassword();
+      formStatus.textContent = "";
+    });
+
+    passwordInput.addEventListener("blur", validatePassword);
+
+    // INICIO DE SESIÓN
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const isValid = fields.map(validateField).every(Boolean);
-      document.getElementById("formStatus").textContent = isValid
-        ? "Los datos son válidos."
-        : "Revisa los campos indicados.";
+
+      // Comprobar todos los campos
+      const fieldsValid = fields
+        .map(validateField)
+        .every(Boolean);
+
+      const passwordValid = validatePassword();
+
+      // Si algún campo es incorrecto
+      if (!fieldsValid || !passwordValid) {
+        alert("Credenciales inválidas. Revisa tus datos.");
+
+        formStatus.textContent =
+          "No se pudo iniciar sesión. Comprueba tus datos.";
+
+        return;
+      }
+
+      // Mostrar estado de carga
+      loginButton.disabled = true;
+
+      loginButton.textContent = "Iniciando sesión...";
+
+      formStatus.textContent = "Comprobando credenciales...";
+
+      // Simular un proceso de inicio de sesión
+      setTimeout(() => {
+        loginButton.disabled = false;
+
+        loginButton.textContent = "Iniciar sesión";
+
+        // Aviso de que falta verificar con un servidor
+        alert("Credenciales inválidas. No se ha configurado un sistema de autenticación.");
+
+        formStatus.textContent =
+          "No se pudo iniciar sesión. Verifica tus credenciales.";
+      }, 1200);
     });
   </script>
-
-<body>
 </body>
 </html>
