@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* ===== CABECERA (R-05) ===== */
+        /* ===== CABECERA ===== */
         .header {
             width: 100%;
             background-color: #2F5D3A;
@@ -36,6 +36,7 @@
         }
 
         .header-btn {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -57,6 +58,23 @@
         .header-btn svg {
             width: 20px;
             height: 20px;
+        }
+
+        /* Contador del carrito */
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 5px;
+            border-radius: 10px;
+            background-color: #C0392B;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 20px;
+            text-align: center;
         }
 
         .avatar-small {
@@ -109,6 +127,7 @@
             gap: 32px;
         }
 
+        /* Foto de perfil */
         .avatar-container {
             text-align: center;
         }
@@ -155,7 +174,7 @@
             color: #444;
         }
 
-        /* ===== FORMULARIO DE LOGIN (R-07) ===== */
+        /* ===== FORMULARIO DE LOGIN ===== */
         .login-card {
             width: 100%;
             max-width: 420px;
@@ -231,6 +250,121 @@
         .btn-login:active {
             background-color: #1D3A24;
         }
+
+        /* ===== PRODUCTOS (R-6) ===== */
+        .products-section {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .products-title {
+            margin: 0 0 18px;
+            font-size: 22px;
+            color: #2F5D3A;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .product-card {
+            width: 200px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #F3E8CC;
+        }
+
+        .product-name {
+            margin: 10px 0 4px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .product-info {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .product-price {
+            margin: 6px 0 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2F5D3A;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        /* Selector de cantidad */
+        .qty {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .qty button {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 50%;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .qty button:hover {
+            background-color: #D9D9D9;
+        }
+
+        .qty span {
+            min-width: 18px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .btn-buy {
+            padding: 7px 14px;
+            border: none;
+            border-radius: 4px;
+            background-color: #2F5D3A;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-buy:hover {
+            background-color: #26492E;
+        }
     </style>
 </head>
 
@@ -239,7 +373,7 @@
     <!-- ===== CABECERA ===== -->
     <header class="header">
 
-        <button type="button" class="header-btn" aria-label="Carrito de compras">
+        <button type="button" class="header-btn" id="cart-btn" aria-label="Carrito de compras">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                  fill="none" stroke="currentColor" stroke-width="1.8"
                  stroke-linecap="round" stroke-linejoin="round">
@@ -247,6 +381,7 @@
                 <circle cx="18" cy="20" r="1.5"/>
                 <path d="M2 3h3l2.4 11.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/>
             </svg>
+            <span class="cart-count" id="cart-count">0</span>
         </button>
 
         <img class="avatar-small"
@@ -309,7 +444,7 @@
 
         </div>
 
-        <!-- Formulario de inicio de sesión (R-07) -->
+        <!-- Formulario de inicio de sesión -->
         <section class="login-card">
 
             <h1 class="login-title" id="login-title">Iniciar sesión</h1>
@@ -344,6 +479,85 @@
 
         </section>
 
+        <!-- Productos (R-6) -->
+        <section class="products-section">
+
+            <h2 class="products-title" id="products-title">Productos</h2>
+
+            <div class="products-grid" id="products-grid">
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&h=200&fit=crop"
+                         alt="Manzana">
+                    <h3 class="product-name">Manzana</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop"
+                         alt="Banana">
+                    <h3 class="product-name">Banana</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1547514701-42782101795e?w=300&h=200&fit=crop"
+                         alt="Naranja">
+                    <h3 class="product-name">Naranja</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1590502593747-42a996133562?w=300&h=200&fit=crop"
+                         alt="Limón">
+                    <h3 class="product-name">Limón</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
     </main>
 
     <script>
@@ -357,8 +571,12 @@
                 botonLogin: "Iniciar sesión",
                 textoAvatar: "Selecciona tu foto de perfil",
                 etiquetaAvatar: "Seleccionar foto de perfil",
+                tituloProductos: "Productos",
+                comprar: "Comprar",
                 alertaImagen: "Por favor, selecciona una imagen válida.",
-                alertaVacio: "Por favor, completa tu nombre de usuario y contraseña."
+                alertaVacio: "Por favor, completa tu nombre de usuario y contraseña.",
+                alertaCantidad: "Primero elige una cantidad con los botones + y −.",
+                alertaAgregado: "agregado al carrito."
             },
             qu: {
                 boton: "QUECHUA",
@@ -368,8 +586,12 @@
                 botonLogin: "Yaykuy",
                 textoAvatar: "Akllay qhawachikuyniykita",
                 etiquetaAvatar: "Akllay qhawachikuyniykita",
+                tituloProductos: "Rurukuna",
+                comprar: "Rantiy",
                 alertaImagen: "Akllay huk valida siq'i.",
-                alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita."
+                alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita.",
+                alertaCantidad: "Ñawpaqta akllay hayk'a ruruta + hinaspa −.",
+                alertaAgregado: "carritoman yapasqa."
             },
             ay: {
                 boton: "AYMARA",
@@ -379,8 +601,12 @@
                 botonLogin: "Mantaña",
                 textoAvatar: "Ajllita qhawachawi",
                 etiquetaAvatar: "Ajllita qhawachawi",
+                tituloProductos: "Achuñanaka",
+                comprar: "Alaña",
                 alertaImagen: "Ajllita huk valida samana.",
-                alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru."
+                alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru.",
+                alertaCantidad: "Nayraqata ajllita qhawqha achuña + ukhamaraki −.",
+                alertaAgregado: "carritoruw yapxataña."
             }
         };
 
@@ -395,6 +621,8 @@
         const labelUsuario = document.getElementById("label-usuario");
         const labelContrasena = document.getElementById("label-contrasena");
         const btnLogin = document.getElementById("btn-login");
+        const productsTitle = document.getElementById("products-title");
+        const buyButtons = document.querySelectorAll(".btn-buy");
 
         /* ---------- CAMBIAR TEXTOS EN TIEMPO REAL ---------- */
         function aplicarIdioma(codigo) {
@@ -408,6 +636,10 @@
             btnLogin.textContent = t.botonLogin;
             avatarText.textContent = t.textoAvatar;
             avatarLabel.setAttribute("aria-label", t.etiquetaAvatar);
+            productsTitle.textContent = t.tituloProductos;
+            buyButtons.forEach(function (b) {
+                b.textContent = t.comprar;
+            });
         }
 
         langBtn.addEventListener("click", function () {
@@ -453,6 +685,54 @@
             }
 
             console.log("Intento de inicio de sesión:", usuario);
+        });
+
+        /* ---------- CARRITO (R-6) ---------- */
+        const cartCount = document.getElementById("cart-count");
+        let carrito = [];
+        let totalUnidades = 0;
+
+        const tarjetas = document.querySelectorAll(".product-card");
+
+        tarjetas.forEach(function (tarjeta) {
+
+            const valor = tarjeta.querySelector(".qty-value");
+            const btnMas = tarjeta.querySelector(".qty-plus");
+            const btnMenos = tarjeta.querySelector(".qty-minus");
+            const btnComprar = tarjeta.querySelector(".btn-buy");
+
+            btnMas.addEventListener("click", function () {
+                valor.textContent = Number(valor.textContent) + 1;
+            });
+
+            btnMenos.addEventListener("click", function () {
+                const actual = Number(valor.textContent);
+                if (actual > 0) valor.textContent = actual - 1;
+            });
+
+            btnComprar.addEventListener("click", function () {
+
+                const cantidad = Number(valor.textContent);
+                const nombre = tarjeta.querySelector(".product-name").textContent;
+                const precio = Number(
+                    tarjeta.querySelector(".product-price").textContent.replace(/[^0-9.]/g, "")
+                );
+                const t = traducciones[ordenIdiomas[idiomaActual]];
+
+                if (cantidad === 0) {
+                    alert(t.alertaCantidad);
+                    return;
+                }
+
+                carrito.push({ nombre: nombre, cantidad: cantidad, precio: precio });
+                totalUnidades += cantidad;
+
+                cartCount.textContent = totalUnidades;
+                valor.textContent = 0;
+
+                alert(cantidad + " × " + nombre + " " + t.alertaAgregado);
+                console.log("Carrito:", carrito);
+            });
         });
     </script>
 
