@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* ===== CABECERA ===== */
+        /* ===== BARRA DE NAVEGACIÓN ===== */
         .header {
             width: 100%;
             background-color: #2F5D3A;
@@ -60,7 +60,7 @@
             height: 20px;
         }
 
-        /* Contador del carrito */
+        /* Indicador del carrito */
         .cart-count {
             position: absolute;
             top: -4px;
@@ -75,6 +75,11 @@
             font-weight: bold;
             line-height: 20px;
             text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .cart-count.pulso {
+            transform: scale(1.35);
         }
 
         .avatar-small {
@@ -370,7 +375,7 @@
 
 <body>
 
-    <!-- ===== CABECERA ===== -->
+    <!-- ===== BARRA DE NAVEGACIÓN ===== -->
     <header class="header">
 
         <button type="button" class="header-btn" id="cart-btn" aria-label="Carrito de compras">
@@ -575,7 +580,7 @@
                 comprar: "Comprar",
                 alertaImagen: "Por favor, selecciona una imagen válida.",
                 alertaVacio: "Por favor, completa tu nombre de usuario y contraseña.",
-                alertaCantidad: "Primero elige una cantidad con los botones + y −.",
+                alertaCantidad: "La cantidad es 0. Elige al menos 1 con el botón + para agregar al carrito.",
                 alertaAgregado: "agregado al carrito."
             },
             qu: {
@@ -590,7 +595,7 @@
                 comprar: "Rantiy",
                 alertaImagen: "Akllay huk valida siq'i.",
                 alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita.",
-                alertaCantidad: "Ñawpaqta akllay hayk'a ruruta + hinaspa −.",
+                alertaCantidad: "Hayk'a 0. Akllay hukmanta +wan carritoman yapay.",
                 alertaAgregado: "carritoman yapasqa."
             },
             ay: {
@@ -605,13 +610,17 @@
                 comprar: "Alaña",
                 alertaImagen: "Ajllita huk valida samana.",
                 alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru.",
-                alertaCantidad: "Nayraqata ajllita qhawqha achuña + ukhamaraki −.",
+                alertaCantidad: "Qhawqha 0. Ajllita mä + ukamp carritoruw yapxataña.",
                 alertaAgregado: "carritoruw yapxataña."
             }
         };
 
         const ordenIdiomas = ["es", "qu", "ay"];
         let idiomaActual = 0;
+
+        function textos() {
+            return traducciones[ordenIdiomas[idiomaActual]];
+        }
 
         const langBtn = document.getElementById("lang-btn");
         const langLabel = document.getElementById("lang-label");
@@ -659,7 +668,7 @@
             if (!file) return;
 
             if (!file.type.startsWith("image/")) {
-                alert(traducciones[ordenIdiomas[idiomaActual]].alertaImagen);
+                alert(textos().alertaImagen);
                 return;
             }
 
@@ -680,7 +689,7 @@
             const contrasena = document.getElementById("contrasena").value;
 
             if (!usuario || !contrasena) {
-                alert(traducciones[ordenIdiomas[idiomaActual]].alertaVacio);
+                alert(textos().alertaVacio);
                 return;
             }
 
@@ -689,8 +698,20 @@
 
         /* ---------- CARRITO (R-6) ---------- */
         const cartCount = document.getElementById("cart-count");
+        const cartBtn = document.getElementById("cart-btn");
+
         let carrito = [];
         let totalUnidades = 0;
+
+        /* Actualiza el indicador del carrito en la barra de navegación */
+        function actualizarIndicador() {
+            cartCount.textContent = totalUnidades;
+
+            cartCount.classList.add("pulso");
+            setTimeout(function () {
+                cartCount.classList.remove("pulso");
+            }, 200);
+        }
 
         const tarjetas = document.querySelectorAll(".product-card");
 
@@ -717,8 +738,9 @@
                 const precio = Number(
                     tarjeta.querySelector(".product-price").textContent.replace(/[^0-9.]/g, "")
                 );
-                const t = traducciones[ordenIdiomas[idiomaActual]];
+                const t = textos();
 
+                /* Si la cantidad es 0, no se agrega nada al carrito */
                 if (cantidad === 0) {
                     alert(t.alertaCantidad);
                     return;
@@ -727,12 +749,30 @@
                 carrito.push({ nombre: nombre, cantidad: cantidad, precio: precio });
                 totalUnidades += cantidad;
 
-                cartCount.textContent = totalUnidades;
+                /* Se actualiza el indicador de la barra de navegación */
+                actualizarIndicador();
+
                 valor.textContent = 0;
 
                 alert(cantidad + " × " + nombre + " " + t.alertaAgregado);
                 console.log("Carrito:", carrito);
             });
+        });
+
+        /* Clic en el icono del carrito: muestra lo que llevas */
+        cartBtn.addEventListener("click", function () {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+
+            let resumen = "Tu carrito:\n";
+            carrito.forEach(function (item) {
+                resumen += "• " + item.cantidad + " × " + item.nombre +
+                           " = " + (item.cantidad * item.precio) + " Bs\n";
+            });
+            resumen += "\nTotal: " + totalUnidades + " unidades";
+            alert(resumen);
         });
     </script>
 
