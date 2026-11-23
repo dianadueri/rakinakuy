@@ -115,8 +115,6 @@
         min-width: 0;
       }
 
-      /* IMAGENES */
-
       .tarjeta-producto img {
         display: block;
         width: 100%;
@@ -124,8 +122,6 @@
         object-fit: cover;
         border-radius: 10px;
       }
-
-      /* NOMBRE DEL PRODUCTO */
 
       .tarjeta-producto h3 {
         color: #285637;
@@ -177,8 +173,6 @@
         text-align: center;
       }
 
-      /* BOTONES DE CANTIDAD */
-
       .boton-cantidad {
         background-color: #f5c542;
         color: #285637;
@@ -210,10 +204,103 @@
         transition: background-color 0.3s;
       }
 
-      /* HOVER VERDE A GRIS */
-
       .boton-comprar:hover {
         background-color: gray;
+      }
+
+      /* NUEVA TAREA: ENCUENTRA RECETAS */
+
+      .seccion-recetas {
+        padding: 50px 20px;
+        text-align: center;
+        background-color: #f3e8cc;
+      }
+
+      .seccion-recetas h2 {
+        font-size: 48px;
+        color: #4e7051;
+        margin: 0 0 40px;
+      }
+
+      .lista-recetas {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        max-width: 1100px;
+        margin: auto;
+      }
+
+      /* TARJETAS DE RECETAS */
+
+      .tarjeta-receta {
+        width: 450px;
+        max-width: 100%;
+        min-height: 340px;
+        background-size: cover;
+        background-position: center;
+        background-color: #52765b;
+        border-radius: 35% 20% 40% 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+
+      .receta-huerto {
+        background-image: url("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800");
+      }
+
+      .receta-primavera {
+        background-image: url("https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800");
+        border-radius: 45% 30% 45% 30%;
+      }
+
+      .tarjeta-receta h3 {
+        color: white;
+        font-size: 40px;
+        text-align: left;
+        text-shadow: 2px 2px 4px #285637;
+        margin: 0 0 25px;
+      }
+
+      /* BOTON VER RECETA */
+
+      .boton-receta {
+        background-color: white;
+        color: #285637;
+        border: none;
+        border-radius: 10px;
+        padding: 14px 35px;
+        font-family: Georgia, serif;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* INFORMACION DE LA RECETA */
+
+      .detalle-receta {
+        display: none;
+        background-color: white;
+        border-radius: 15px;
+        padding: 25px;
+        max-width: 900px;
+        margin: 25px auto;
+        text-align: left;
+        color: #285637;
+      }
+
+      .detalle-receta h3 {
+        font-size: 26px;
+        margin-top: 0;
+      }
+
+      .detalle-receta p {
+        font-size: 17px;
+        line-height: 1.6;
       }
 
       /* DISEÑO RESPONSIVE */
@@ -225,8 +312,18 @@
       }
 
       @media (max-width: 600px) {
-        .productos-populares h2 {
+        .productos-populares h2,
+        .seccion-recetas h2 {
           font-size: 32px;
+        }
+
+        .tarjeta-receta {
+          min-height: 280px;
+          padding: 30px;
+        }
+
+        .tarjeta-receta h3 {
+          font-size: 30px;
         }
       }
 
@@ -377,6 +474,44 @@
       </div>
     </section>
 
+    <!-- NUEVA TAREA: ENCUENTRA RECETAS -->
+
+    <section class="seccion-recetas">
+      <h2>Encuentra Recetas</h2>
+
+      <div class="lista-recetas">
+        <!-- ENSALADA DE HUERTO -->
+
+        <div class="tarjeta-receta receta-huerto">
+          <h3>Ensalada<br />de huerto</h3>
+
+          <button type="button" class="boton-receta" id="botonHuerto">
+            Ver receta
+          </button>
+        </div>
+
+        <!-- ENSALADA PRIMAVERA -->
+
+        <div class="tarjeta-receta receta-primavera">
+          <h3>Ensalada<br />Primavera</h3>
+
+          <button type="button" class="boton-receta" id="botonPrimavera">
+            Ver receta
+          </button>
+        </div>
+      </div>
+
+      <!-- INFORMACION DE LA RECETA SELECCIONADA -->
+
+      <div class="detalle-receta" id="detalleReceta">
+        <h3 id="tituloReceta"></h3>
+
+        <p id="ingredientesReceta"></p>
+
+        <p id="preparacionReceta"></p>
+      </div>
+    </section>
+
     <!-- JAVASCRIPT -->
 
     <script>
@@ -414,19 +549,55 @@
 
         let cantidad = 0;
 
-        // Aumentar cantidad
         botonSumar.addEventListener("click", function () {
           cantidad = cantidad + 1;
           numeroCantidad.textContent = cantidad;
         });
 
-        // Disminuir cantidad sin bajar de cero
         botonRestar.addEventListener("click", function () {
           if (cantidad > 0) {
             cantidad = cantidad - 1;
             numeroCantidad.textContent = cantidad;
           }
         });
+      });
+
+      /* NUEVA TAREA: BOTONES VER RECETA */
+
+      const botonHuerto = document.getElementById("botonHuerto");
+      const botonPrimavera = document.getElementById("botonPrimavera");
+
+      const detalleReceta = document.getElementById("detalleReceta");
+      const tituloReceta = document.getElementById("tituloReceta");
+      const ingredientesReceta = document.getElementById("ingredientesReceta");
+      const preparacionReceta = document.getElementById("preparacionReceta");
+
+      /* MOSTRAR RECETA DE HUERTO */
+
+      botonHuerto.addEventListener("click", function () {
+        detalleReceta.style.display = "block";
+
+        tituloReceta.textContent = "Ensalada de huerto";
+
+        ingredientesReceta.textContent =
+          "Ingredientes: lechuga, tomate, zanahoria y pepino.";
+
+        preparacionReceta.textContent =
+          "Preparación: lavar, cortar y mezclar los ingredientes. Agregar sal y limón.";
+      });
+
+      /* MOSTRAR RECETA PRIMAVERA */
+
+      botonPrimavera.addEventListener("click", function () {
+        detalleReceta.style.display = "block";
+
+        tituloReceta.textContent = "Ensalada Primavera";
+
+        ingredientesReceta.textContent =
+          "Ingredientes: lechuga, aguacate, tomate, zanahoria y repollo.";
+
+        preparacionReceta.textContent =
+          "Preparación: cortar las verduras, mezclarlas y agregar aceite de oliva.";
       });
     </script>
   </body>
