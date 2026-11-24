@@ -208,7 +208,7 @@
         background-color: gray;
       }
 
-      /* NUEVA TAREA: ENCUENTRA RECETAS */
+      /* SECCION ENCUENTRA RECETAS */
 
       .seccion-recetas {
         padding: 50px 20px;
@@ -278,29 +278,6 @@
         font-size: 20px;
         font-weight: bold;
         cursor: pointer;
-      }
-
-      /* INFORMACION DE LA RECETA */
-
-      .detalle-receta {
-        display: none;
-        background-color: white;
-        border-radius: 15px;
-        padding: 25px;
-        max-width: 900px;
-        margin: 25px auto;
-        text-align: left;
-        color: #285637;
-      }
-
-      .detalle-receta h3 {
-        font-size: 26px;
-        margin-top: 0;
-      }
-
-      .detalle-receta p {
-        font-size: 17px;
-        line-height: 1.6;
       }
 
       /* DISEÑO RESPONSIVE */
@@ -474,9 +451,9 @@
       </div>
     </section>
 
-    <!-- NUEVA TAREA: ENCUENTRA RECETAS -->
+    <!-- ENCUENTRA RECETAS -->
 
-    <section class="seccion-recetas">
+    <section class="seccion-recetas" id="recetas">
       <h2>Encuentra Recetas</h2>
 
       <div class="lista-recetas">
@@ -499,16 +476,6 @@
             Ver receta
           </button>
         </div>
-      </div>
-
-      <!-- INFORMACION DE LA RECETA SELECCIONADA -->
-
-      <div class="detalle-receta" id="detalleReceta">
-        <h3 id="tituloReceta"></h3>
-
-        <p id="ingredientesReceta"></p>
-
-        <p id="preparacionReceta"></p>
       </div>
     </section>
 
@@ -562,42 +529,17 @@
         });
       });
 
-      /* NUEVA TAREA: BOTONES VER RECETA */
+      /* NUEVA TAREA: NAVEGACION A LAS RECETAS */
 
       const botonHuerto = document.getElementById("botonHuerto");
       const botonPrimavera = document.getElementById("botonPrimavera");
 
-      const detalleReceta = document.getElementById("detalleReceta");
-      const tituloReceta = document.getElementById("tituloReceta");
-      const ingredientesReceta = document.getElementById("ingredientesReceta");
-      const preparacionReceta = document.getElementById("preparacionReceta");
-
-      /* MOSTRAR RECETA DE HUERTO */
-
       botonHuerto.addEventListener("click", function () {
-        detalleReceta.style.display = "block";
-
-        tituloReceta.textContent = "Ensalada de huerto";
-
-        ingredientesReceta.textContent =
-          "Ingredientes: lechuga, tomate, zanahoria y pepino.";
-
-        preparacionReceta.textContent =
-          "Preparación: lavar, cortar y mezclar los ingredientes. Agregar sal y limón.";
+        window.location.href = "receta-huerto.html";
       });
 
-      /* MOSTRAR RECETA PRIMAVERA */
-
       botonPrimavera.addEventListener("click", function () {
-        detalleReceta.style.display = "block";
-
-        tituloReceta.textContent = "Ensalada Primavera";
-
-        ingredientesReceta.textContent =
-          "Ingredientes: lechuga, aguacate, tomate, zanahoria y repollo.";
-
-        preparacionReceta.textContent =
-          "Preparación: cortar las verduras, mezclarlas y agregar aceite de oliva.";
+        window.location.href = "receta-primavera.html";
       });
     </script>
   </body>
