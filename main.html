@@ -2,75 +2,297 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rakinakuy - Inicio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakinakuy - Inicio</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-      background-color: #F3E8CC;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .banner {
-      width: 100%;
-      position: relative;
-    }
+        body {
+            background-color: #F3E8CC;
+            font-family: Arial, sans-serif;
+        }
 
-    .banner img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
+        /* BANNER PRINCIPAL */
 
-    .boton {
-      position: absolute;
-      left: 8.5%;
-      top: 72%;
-      width: 29%;
-      height: 10%;
-      cursor: pointer;
-    }
+        .banner {
+            position: relative;
+            width: 100%;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            padding: 8%;
+            overflow: hidden;
+        }
 
-    .boton:focus-visible {
-      outline: 3px solid #185B35;
-    }
+        .banner img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
 
-    @media (max-width: 600px) {
-      .boton {
-        left: 8%;
-        top: 72%;
-        width: 30%;
-        height: 10%;
-      }
-    }
-  </style>
+        .contenido {
+            position: relative;
+            z-index: 1;
+            max-width: 520px;
+            color: #185B35;
+        }
+
+        .contenido h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .contenido p {
+            font-size: 21px;
+            margin-bottom: 30px;
+        }
+
+        .boton {
+            display: inline-block;
+            background-color: #185B35;
+            color: white;
+            padding: 15px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* SECCIÓN ENCUENTRA RECETAS */
+
+        .recetas {
+            width: 100%;
+            padding: 45px 20px;
+            background-color: #F3E8CC;
+            text-align: center;
+        }
+
+        .recetas h2 {
+            color: #185B35;
+            font-family: Georgia, serif;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .contenedor-recetas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tarjeta-receta {
+            position: relative;
+            width: 350px;
+            height: 260px;
+        }
+
+        .tarjeta-receta img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* TEXTO ENCIMA DE LAS IMÁGENES */
+
+        .texto-receta {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            color: white;
+            text-align: center;
+        }
+
+        .texto-receta h3 {
+            font-family: Georgia, serif;
+            font-size: 27px;
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* BOTÓN VER RECETA */
+
+        .boton-receta {
+            display: inline-block;
+            background-color: white;
+            color: #185B35;
+            padding: 9px 22px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* BOTÓN VER MÁS RECETAS */
+
+        .boton-mas {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #185B35;
+            color: white;
+            padding: 12px 45px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* EFECTOS DE LOS BOTONES */
+
+        .boton-receta:hover {
+            background-color: #E8E8E8;
+        }
+
+        .boton-mas:hover,
+        .boton:hover {
+            background-color: #124529;
+        }
+
+        /* DISEÑO RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .banner {
+                min-height: 500px;
+            }
+
+            .contenido h1 {
+                font-size: 34px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+            }
+
+            .recetas {
+                padding: 40px 15px;
+            }
+
+            .recetas h2 {
+                font-size: 29px;
+            }
+
+            .contenedor-recetas {
+                gap: 20px;
+            }
+
+            .tarjeta-receta {
+                width: 100%;
+                max-width: 350px;
+                height: 250px;
+            }
+
+            .texto-receta h3 {
+                font-size: 24px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-  <main>
-    <section class="banner">
+    <main>
 
-      <img
-        src="images/banner.png"
-        alt="Descubre tu nueva vida saludable. Encuentra productos a precios justos."
-      >
+        <!-- BANNER PRINCIPAL -->
 
-      <a
-        href="#autenticacion"
-        class="boton"
-        aria-label="Iniciar sesión o registrarse"
-      ></a>
+        <section class="banner">
 
-    </section>
+            <img src="images/banner.png" alt="Banner de Rakinakuy">
 
-    <section id="autenticacion">
-    </section>
-  </main>
+            <div class="contenido">
+
+                <h1>Descubre tu nueva vida saludable</h1>
+
+                <p>Encuentra productos a precios justos</p>
+
+                <a href="#autenticacion" class="boton">
+                    Iniciar sesión / Registrarse
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECCIÓN ENCUENTRA RECETAS -->
+
+        <section class="recetas" id="recetas">
+
+            <h2>Encuentra Recetas</h2>
+
+            <div class="contenedor-recetas">
+
+                <!-- PRIMERA RECETA: ENSALADA DE HUERTO -->
+
+                <article class="tarjeta-receta">
+
+                    <img src="images/ensalada1.png"
+                         alt="Ensalada de huerto">
+
+                    <div class="texto-receta">
+
+                        <h3>Ensalada<br>de huerto</h3>
+
+                        <a href="#" class="boton-receta">
+                            Ver receta
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- SEGUNDA RECETA: ENSALADA PRIMAVERA -->
+
+                <article class="tarjeta-receta">
+
+                    <img src="images/ensalada2.png"
+                         alt="Ensalada Primavera">
+
+                    <div class="texto-receta">
+
+                        <h3>Ensalada<br>Primavera</h3>
+
+                        <a href="#" class="boton-receta">
+                            Ver receta
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- BOTÓN VER MÁS RECETAS -->
+
+            <a href="#" class="boton-mas">
+                Ver más Recetas
+            </a>
+
+        </section>
+
+
+        <!-- AUTENTICACIÓN -->
+
+        <section id="autenticacion"></section>
+
+    </main>
 
 </body>
 </html>
