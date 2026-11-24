@@ -1,564 +1,780 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Granja Ramírez</title>
-  <style>
-    /* ======= ESTILOS BASE ======= */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakinakuy - Registro</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5efdc;
-      color: #2e2e2e;
-      min-height: 100vh;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    /* ======= NAVBAR ======= */
-    .navbar {
-      background: #2f6b3a;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 24px;
-    }
+        html, body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+            background-color: #F3E8CC;
+            font-family: Arial, sans-serif;
+        }
 
-    .navbar__logo { color: #fff; font-weight: bold; font-size: 18px; }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    .navbar__acciones { display: flex; align-items: center; gap: 12px; }
+        /* ===== BARRA DE NAVEGACIÓN ===== */
+        .header {
+            width: 100%;
+            background-color: #2F5D3A;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .navbar__carrito {
-      background: #cfe3b8;
-      border: none;
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+        .header-btn {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s;
+        }
 
-    .navbar__perfil {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #cfe3b8;
-      cursor: pointer;
-    }
+        .header-btn:hover {
+            background-color: #D9D9D9;
+            color: #555;
+        }
 
-    /* Selector de idioma: verde -> gris al pasar el mouse */
-    .navbar__idioma {
-      background: #cfe3b8;
-      border: none;
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+        .header-btn svg {
+            width: 20px;
+            height: 20px;
+        }
 
-    .navbar__idioma:hover { background: #9a9a9a; color: #fff; }
+        /* Indicador del carrito */
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 5px;
+            border-radius: 10px;
+            background-color: #C0392B;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
 
-    /* ======= CONTENEDOR DE PANTALLAS ======= */
-    .pantalla { display: none; }
-    .pantalla--activa { display: block; }
+        .cart-count.pulso {
+            transform: scale(1.35);
+        }
 
-    /* ======= LOGIN / REGISTRO ======= */
-    .caja-form {
-      background: #f5efdc;
-      min-height: calc(100vh - 60px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-    }
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #F3E8CC;
+        }
 
-    .caja-form h2 {
-      font-size: 22px;
-      color: #2f6b3a;
-      margin-bottom: 24px;
-      text-align: center;
-    }
+        /* Botón de idioma: verde -> gris al pasar el mouse */
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s;
+        }
 
-    .campo {
-      width: 100%;
-      max-width: 320px;
-      margin-bottom: 14px;
-    }
+        .lang-btn:hover,
+        .lang-btn:focus-visible {
+            background-color: #D9D9D9;
+            color: #555;
+            outline: none;
+        }
 
-    .campo label {
-      display: block;
-      font-size: 12px;
-      font-weight: bold;
-      color: #2f6b3a;
-      margin-bottom: 4px;
-    }
+        .lang-btn svg {
+            width: 18px;
+            height: 18px;
+        }
 
-    .campo input {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #2f6b3a;
-      border-radius: 4px;
-      font-size: 14px;
-      background: #fff;
-    }
+        /* ===== CONTENIDO ===== */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            gap: 32px;
+        }
 
-    .campo input:focus { outline: 2px solid #2f6b3a; }
+        /* Foto de perfil */
+        .avatar-container {
+            text-align: center;
+        }
 
-    .btn-principal {
-      width: 100%;
-      max-width: 320px;
-      background: #2f6b3a;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 6px;
-    }
+        .avatar-upload {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed #777;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: border-color 0.3s;
+        }
 
-    .btn-principal:hover { background: #24552e; }
+        .avatar-upload:hover {
+            border-color: #333;
+        }
 
-    .enlace-cambio {
-      margin-top: 16px;
-      font-size: 13px;
-      color: #2f6b3a;
-      cursor: pointer;
-      text-decoration: underline;
-      background: none;
-      border: none;
-    }
+        .upload-icon {
+            width: 42px;
+            height: 42px;
+            color: #555;
+        }
 
-    /* ======= FOTO DE PERFIL ======= */
-    .zona-foto {
-      width: 160px; height: 160px;
-      border: 2px dashed #8a8a8a;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin-bottom: 12px;
-      background: #fffdf5;
-      overflow: hidden;
-    }
+        .avatar-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
 
-    .zona-foto__icono { font-size: 28px; color: #555; }
+        #avatar-input {
+            display: none;
+        }
 
-    .zona-foto img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: none;
-    }
+        .avatar-text {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #444;
+        }
 
-    .texto-foto { font-size: 12px; color: #555; margin-bottom: 24px; }
+        /* ===== FORMULARIO DE LOGIN ===== */
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    /* ======= PRODUCTOS ======= */
-    .productos {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 40px;
-      justify-content: center;
-    }
+        .login-title {
+            margin: 0 0 24px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2F5D3A;
+            text-align: center;
+        }
 
-    .tarjeta {
-      background: #fffdf5;
-      border-radius: 12px;
-      padding: 14px;
-      width: 180px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
+        .login-form {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .tarjeta__img {
-      width: 100%; height: 90px;
-      object-fit: contain;
-      margin-bottom: 8px;
-    }
+        .field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
 
-    .tarjeta__nombre { font-size: 16px; margin-bottom: 4px; }
+        .field label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2F5D3A;
+            margin-bottom: 6px;
+        }
 
-    .tarjeta__granja {
-      font-size: 10px;
-      color: #fff;
-      background: #2f6b3a;
-      border-radius: 4px;
-      display: inline-block;
-      padding: 2px 6px;
-      margin-bottom: 6px;
-    }
+        .field input {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #222;
+            background-color: #FFFFFF;
+            border: 1px solid #8A8A8A;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
 
-    .tarjeta__precio { font-size: 13px; margin-bottom: 10px; }
+        .field input:focus {
+            border-color: #2F5D3A;
+            box-shadow: 0 0 0 2px rgba(47, 93, 58, 0.2);
+        }
 
-    .tarjeta__acciones {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
+        .btn-login {
+            margin-top: 6px;
+            padding: 11px 16px;
+            font-size: 14px;
+            font-family: inherit;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #2F5D3A;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
 
-    /* ======= SELECTOR DE CANTIDAD ======= */
-    .cantidad {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #e8e2cc;
-      border-radius: 20px;
-      padding: 3px 6px;
-    }
+        .btn-login:hover {
+            background-color: #26492E;
+        }
 
-    .cantidad__btn {
-      border: none;
-      background: transparent;
-      font-size: 14px;
-      cursor: pointer;
-      width: 18px;
-    }
+        .btn-login:active {
+            background-color: #1D3A24;
+        }
 
-    .cantidad__valor { font-size: 13px; min-width: 14px; text-align: center; }
+        /* ===== PRODUCTOS (R-6) ===== */
+        .products-section {
+            width: 100%;
+            max-width: 1000px;
+        }
 
-    /* ======= BOTÓN COMPRAR ======= */
-    .btn-comprar {
-      background: #2f6b3a;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
-      cursor: pointer;
-    }
+        .products-title {
+            margin: 0 0 18px;
+            font-size: 22px;
+            color: #2F5D3A;
+            text-align: center;
+        }
 
-    .btn-comprar:hover { background: #24552e; }
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
 
-    /* ======= AVISO DE CONFIRMACIÓN ======= */
-    .aviso {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #2f6b3a;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 8px;
-      font-size: 14px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s, transform 0.3s;
-      z-index: 100;
-    }
+        .product-card {
+            width: 200px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+        }
 
-    .aviso--visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-  </style>
+        .product-img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #F3E8CC;
+        }
+
+        .product-name {
+            margin: 10px 0 4px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .product-info {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .product-price {
+            margin: 6px 0 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2F5D3A;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        /* Selector de cantidad */
+        .qty {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .qty button {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 50%;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .qty button:hover {
+            background-color: #D9D9D9;
+        }
+
+        .qty span {
+            min-width: 18px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .btn-buy {
+            padding: 7px 14px;
+            border: none;
+            border-radius: 4px;
+            background-color: #2F5D3A;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-buy:hover {
+            background-color: #26492E;
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- ======= BARRA DE NAVEGACIÓN ======= -->
-  <header class="navbar">
-    <div class="navbar__logo">Granja Ramírez</div>
-    <div class="navbar__acciones">
-      <button class="navbar__carrito" id="btnCarrito">
-        🛒 <span id="contadorCarrito">0</span>
-      </button>
-      <img src="" alt="Perfil" class="navbar__perfil" id="fotoNavbar">
-      <button class="navbar__idioma" id="btnIdioma">🌐 ESPAÑOL</button>
-    </div>
-  </header>
+    <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+    <header class="header">
 
-  <!-- ======= PANTALLA: LOGIN ======= -->
-  <section class="pantalla pantalla--activa" id="pantallaLogin">
-    <div class="caja-form">
-      <h2>Iniciar sesión</h2>
+        <button type="button" class="header-btn" id="cart-btn" aria-label="Carrito de compras">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="20" r="1.5"/>
+                <circle cx="18" cy="20" r="1.5"/>
+                <path d="M2 3h3l2.4 11.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/>
+            </svg>
+            <span class="cart-count" id="cart-count">0</span>
+        </button>
 
-      <div class="campo">
-        <label for="loginUsuario">Nombre de usuario:</label>
-        <input type="text" id="loginUsuario" placeholder="Tu usuario">
-      </div>
+        <img class="avatar-small"
+             src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=80&h=80&fit=crop"
+             alt="Foto de perfil del usuario">
 
-      <div class="campo">
-        <label for="loginContrasena">Contraseña:</label>
-        <input type="password" id="loginContrasena" placeholder="Tu contraseña">
-      </div>
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Cambiar idioma">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5h9"/>
+                <path d="M8.5 3v2"/>
+                <path d="M11 5c0 4-3 7-7 8"/>
+                <path d="M6 9c1 2.5 3 4.5 5.5 5.5"/>
+                <path d="m13 21 4-10 4 10"/>
+                <path d="M14.5 17.5h5"/>
+            </svg>
+            <span id="lang-label">ESPAÑOL</span>
+        </button>
 
-      <button class="btn-principal" id="btnLogin">Iniciar sesión</button>
+    </header>
 
-      <button class="enlace-cambio" id="irARegistro">¿No tienes cuenta? Regístrate</button>
-    </div>
-  </section>
+    <!-- ===== CONTENIDO ===== -->
+    <main class="main">
 
-  <!-- ======= PANTALLA: REGISTRO ======= -->
-  <section class="pantalla" id="pantallaRegistro">
-    <div class="caja-form">
-      <h2>Crear cuenta</h2>
+        <!-- Foto de perfil -->
+        <div class="avatar-container">
 
-      <div class="campo">
-        <label for="regUsuario">Nombre de usuario:</label>
-        <input type="text" id="regUsuario" placeholder="Elige un usuario">
-      </div>
+            <label for="avatar-input" class="avatar-upload"
+                   id="avatar-label"
+                   aria-label="Seleccionar foto de perfil">
 
-      <div class="campo">
-        <label for="regContrasena">Contraseña:</label>
-        <input type="password" id="regContrasena" placeholder="Elige una contraseña">
-      </div>
+                <svg class="upload-icon" id="upload-icon"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
 
-      <button class="btn-principal" id="btnRegistro">Registrarme</button>
+                    <path d="M12 16V4"/>
+                    <path d="m7 9 5-5 5 5"/>
+                    <path d="M20 16.5v3a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-3"/>
+                </svg>
 
-      <button class="enlace-cambio" id="irALogin">Ya tengo cuenta, iniciar sesión</button>
-    </div>
-  </section>
+                <img id="avatar-preview"
+                     class="avatar-preview"
+                     alt="Vista previa de la foto de perfil">
 
-  <!-- ======= PANTALLA: FOTO DE PERFIL ======= -->
-  <section class="pantalla" id="pantallaFoto">
-    <div class="caja-form">
-      <h2>Tu foto de perfil</h2>
+            </label>
 
-      <div class="zona-foto" id="zonaFoto">
-        <span class="zona-foto__icono" id="iconoFoto">⬆</span>
-        <img src="" alt="Foto de perfil" id="previewFoto">
-      </div>
-      <p class="texto-foto">Selecciona tu foto de perfil</p>
+            <input
+                type="file"
+                id="avatar-input"
+                accept="image/*"
+            >
 
-      <input type="file" id="inputFoto" accept="image/*" hidden>
+            <p class="avatar-text" id="avatar-text">Selecciona tu foto de perfil</p>
 
-      <button class="btn-principal" id="btnContinuar">Continuar</button>
-    </div>
-  </section>
-
-  <!-- ======= PANTALLA: INICIO / PRODUCTOS ======= -->
-  <section class="pantalla" id="pantallaInicio">
-    <main class="productos">
-
-      <div class="tarjeta" data-id="1" data-nombre="Manzana" data-precio="4">
-        <img src="manzana.jpg" alt="Manzana" class="tarjeta__img">
-        <h3 class="tarjeta__nombre">Manzana</h3>
-        <p class="tarjeta__granja">GRANJA RAMÍREZ</p>
-        <p class="tarjeta__precio">4 Bs</p>
-        <div class="tarjeta__acciones">
-          <div class="cantidad">
-            <button class="cantidad__btn cantidad__menos">−</button>
-            <span class="cantidad__valor">0</span>
-            <button class="cantidad__btn cantidad__mas">+</button>
-          </div>
-          <button class="btn-comprar">Comprar</button>
         </div>
-      </div>
 
-      <div class="tarjeta" data-id="2" data-nombre="Banana" data-precio="4">
-        <img src="banana.jpg" alt="Banana" class="tarjeta__img">
-        <h3 class="tarjeta__nombre">Banana</h3>
-        <p class="tarjeta__granja">GRANJA RAMÍREZ</p>
-        <p class="tarjeta__precio">4 Bs</p>
-        <div class="tarjeta__acciones">
-          <div class="cantidad">
-            <button class="cantidad__btn cantidad__menos">−</button>
-            <span class="cantidad__valor">0</span>
-            <button class="cantidad__btn cantidad__mas">+</button>
-          </div>
-          <button class="btn-comprar">Comprar</button>
-        </div>
-      </div>
+        <!-- Formulario de inicio de sesión -->
+        <section class="login-card">
 
-      <div class="tarjeta" data-id="3" data-nombre="Naranja" data-precio="4">
-        <img src="naranja.jpg" alt="Naranja" class="tarjeta__img">
-        <h3 class="tarjeta__nombre">Naranja</h3>
-        <p class="tarjeta__granja">GRANJA RAMÍREZ</p>
-        <p class="tarjeta__precio">4 Bs</p>
-        <div class="tarjeta__acciones">
-          <div class="cantidad">
-            <button class="cantidad__btn cantidad__menos">−</button>
-            <span class="cantidad__valor">0</span>
-            <button class="cantidad__btn cantidad__mas">+</button>
-          </div>
-          <button class="btn-comprar">Comprar</button>
-        </div>
-      </div>
+            <h1 class="login-title" id="login-title">Iniciar sesión</h1>
 
-      <div class="tarjeta" data-id="4" data-nombre="Limón" data-precio="4">
-        <img src="limon.jpg" alt="Limón" class="tarjeta__img">
-        <h3 class="tarjeta__nombre">Limón</h3>
-        <p class="tarjeta__granja">GRANJA RAMÍREZ</p>
-        <p class="tarjeta__precio">4 Bs</p>
-        <div class="tarjeta__acciones">
-          <div class="cantidad">
-            <button class="cantidad__btn cantidad__menos">−</button>
-            <span class="cantidad__valor">0</span>
-            <button class="cantidad__btn cantidad__mas">+</button>
-          </div>
-          <button class="btn-comprar">Comprar</button>
-        </div>
-      </div>
+            <form class="login-form" id="login-form" novalidate>
+
+                <div class="field">
+                    <label for="usuario" id="label-usuario">Nombre de usuario:</label>
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="contrasena" id="label-contrasena">Contraseña:</label>
+                    <input
+                        type="password"
+                        id="contrasena"
+                        name="contrasena"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn-login" id="btn-login">Iniciar sesión</button>
+
+            </form>
+
+        </section>
+
+        <!-- Productos (R-6) -->
+        <section class="products-section">
+
+            <h2 class="products-title" id="products-title">Productos</h2>
+
+            <div class="products-grid" id="products-grid">
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&h=200&fit=crop"
+                         alt="Manzana">
+                    <h3 class="product-name">Manzana</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop"
+                         alt="Banana">
+                    <h3 class="product-name">Banana</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1547514701-42782101795e?w=300&h=200&fit=crop"
+                         alt="Naranja">
+                    <h3 class="product-name">Naranja</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img class="product-img"
+                         src="https://images.unsplash.com/photo-1590502593747-42a996133562?w=300&h=200&fit=crop"
+                         alt="Limón">
+                    <h3 class="product-name">Limón</h3>
+                    <p class="product-info">Granja Ramírez · 4 Bs</p>
+                    <p class="product-price">4 Bs</p>
+                    <div class="product-actions">
+                        <div class="qty">
+                            <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+                            <span class="qty-value">0</span>
+                            <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+                        </div>
+                        <button type="button" class="btn-buy">Comprar</button>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
 
     </main>
-  </section>
 
-  <!-- ======= AVISO DE CONFIRMACIÓN ======= -->
-  <div class="aviso" id="aviso"></div>
+    <script>
+        /* ---------- TEXTOS EN LOS TRES IDIOMAS ---------- */
+        const traducciones = {
+            es: {
+                boton: "ESPAÑOL",
+                titulo: "Iniciar sesión",
+                etiquetaUsuario: "Nombre de usuario:",
+                etiquetaContrasena: "Contraseña:",
+                botonLogin: "Iniciar sesión",
+                textoAvatar: "Selecciona tu foto de perfil",
+                etiquetaAvatar: "Seleccionar foto de perfil",
+                tituloProductos: "Productos",
+                comprar: "Comprar",
+                alertaImagen: "Por favor, selecciona una imagen válida.",
+                alertaVacio: "Por favor, completa tu nombre de usuario y contraseña.",
+                alertaCantidad: "La cantidad es 0. Elige al menos 1 con el botón + para agregar al carrito.",
+                alertaAgregado: "agregado al carrito."
+            },
+            qu: {
+                boton: "QUECHUA",
+                titulo: "Yaykuy",
+                etiquetaUsuario: "Sutiyki:",
+                etiquetaContrasena: "Pakasqa simi:",
+                botonLogin: "Yaykuy",
+                textoAvatar: "Akllay qhawachikuyniykita",
+                etiquetaAvatar: "Akllay qhawachikuyniykita",
+                tituloProductos: "Rurukuna",
+                comprar: "Rantiy",
+                alertaImagen: "Akllay huk valida siq'i.",
+                alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita.",
+                alertaCantidad: "Hayk'a 0. Akllay hukmanta +wan carritoman yapay.",
+                alertaAgregado: "carritoman yapasqa."
+            },
+            ay: {
+                boton: "AYMARA",
+                titulo: "Mantaña",
+                etiquetaUsuario: "Sutima:",
+                etiquetaContrasena: "Imantaña aru:",
+                botonLogin: "Mantaña",
+                textoAvatar: "Ajllita qhawachawi",
+                etiquetaAvatar: "Ajllita qhawachawi",
+                tituloProductos: "Achuñanaka",
+                comprar: "Alaña",
+                alertaImagen: "Ajllita huk valida samana.",
+                alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru.",
+                alertaCantidad: "Qhawqha 0. Ajllita mä + ukamp carritoruw yapxataña.",
+                alertaAgregado: "carritoruw yapxataña."
+            }
+        };
 
-  <script>
-    // ==================== NAVEGACIÓN ENTRE PANTALLAS ====================
-    const pantallas = {
-      login: document.getElementById('pantallaLogin'),
-      registro: document.getElementById('pantallaRegistro'),
-      foto: document.getElementById('pantallaFoto'),
-      inicio: document.getElementById('pantallaInicio')
-    };
+        const ordenIdiomas = ["es", "qu", "ay"];
+        let idiomaActual = 0;
 
-    function mostrarPantalla(nombre) {
-      Object.values(pantallas).forEach(p => p.classList.remove('pantalla--activa'));
-      pantallas[nombre].classList.add('pantalla--activa');
-    }
+        function textos() {
+            return traducciones[ordenIdiomas[idiomaActual]];
+        }
 
-    document.getElementById('irARegistro').addEventListener('click', () => mostrarPantalla('registro'));
-    document.getElementById('irALogin').addEventListener('click', () => mostrarPantalla('login'));
+        const langBtn = document.getElementById("lang-btn");
+        const langLabel = document.getElementById("lang-label");
+        const avatarText = document.getElementById("avatar-text");
+        const avatarLabel = document.getElementById("avatar-label");
+        const loginTitle = document.getElementById("login-title");
+        const labelUsuario = document.getElementById("label-usuario");
+        const labelContrasena = document.getElementById("label-contrasena");
+        const btnLogin = document.getElementById("btn-login");
+        const productsTitle = document.getElementById("products-title");
+        const buyButtons = document.querySelectorAll(".btn-buy");
 
-    // ==================== LOGIN ====================
-    document.getElementById('btnLogin').addEventListener('click', () => {
-      const usuario = document.getElementById('loginUsuario').value.trim();
-      const contrasena = document.getElementById('loginContrasena').value.trim();
+        /* ---------- CAMBIAR TEXTOS EN TIEMPO REAL ---------- */
+        function aplicarIdioma(codigo) {
+            const t = traducciones[codigo];
 
-      if (!usuario || !contrasena) {
-        mostrarAviso('Completa usuario y contraseña');
-        return;
-      }
+            document.documentElement.lang = codigo;
+            langLabel.textContent = t.boton;
+            loginTitle.textContent = t.titulo;
+            labelUsuario.textContent = t.etiquetaUsuario;
+            labelContrasena.textContent = t.etiquetaContrasena;
+            btnLogin.textContent = t.botonLogin;
+            avatarText.textContent = t.textoAvatar;
+            avatarLabel.setAttribute("aria-label", t.etiquetaAvatar);
+            productsTitle.textContent = t.tituloProductos;
+            buyButtons.forEach(function (b) {
+                b.textContent = t.comprar;
+            });
+        }
 
-      mostrarAviso(`Bienvenido, ${usuario}`);
-      mostrarPantalla('inicio');
-    });
+        langBtn.addEventListener("click", function () {
+            idiomaActual = (idiomaActual + 1) % ordenIdiomas.length;
+            aplicarIdioma(ordenIdiomas[idiomaActual]);
+        });
 
-    // ==================== REGISTRO ====================
-    document.getElementById('btnRegistro').addEventListener('click', () => {
-      const usuario = document.getElementById('regUsuario').value.trim();
-      const contrasena = document.getElementById('regContrasena').value.trim();
+        /* ---------- Foto de perfil ---------- */
+        const avatarInput = document.getElementById("avatar-input");
+        const avatarPreview = document.getElementById("avatar-preview");
+        const uploadIcon = document.getElementById("upload-icon");
 
-      if (!usuario || !contrasena) {
-        mostrarAviso('Completa todos los campos');
-        return;
-      }
+        avatarInput.addEventListener("change", function (event) {
 
-      mostrarAviso('Cuenta creada');
-      mostrarPantalla('foto');
-    });
+            const file = event.target.files[0];
 
-    // ==================== FOTO DE PERFIL ====================
-    const zonaFoto = document.getElementById('zonaFoto');
-    const inputFoto = document.getElementById('inputFoto');
-    const previewFoto = document.getElementById('previewFoto');
-    const iconoFoto = document.getElementById('iconoFoto');
-    const fotoNavbar = document.getElementById('fotoNavbar');
+            if (!file) return;
 
-    zonaFoto.addEventListener('click', () => inputFoto.click());
+            if (!file.type.startsWith("image/")) {
+                alert(textos().alertaImagen);
+                return;
+            }
 
-    inputFoto.addEventListener('change', () => {
-      const archivo = inputFoto.files[0];
-      if (!archivo) return;
+            const imageURL = URL.createObjectURL(file);
 
-      const lector = new FileReader();
-      lector.onload = (e) => {
-        const url = e.target.result;
-        previewFoto.src = url;
-        previewFoto.style.display = 'block';
-        iconoFoto.style.display = 'none';
-        fotoNavbar.src = url;
-      };
-      lector.readAsDataURL(archivo);
-    });
+            avatarPreview.src = imageURL;
+            avatarPreview.style.display = "block";
+            uploadIcon.style.display = "none";
+        });
 
-    document.getElementById('btnContinuar').addEventListener('click', () => {
-      mostrarPantalla('inicio');
-    });
+        /* ---------- Validación del login ---------- */
+        const loginForm = document.getElementById("login-form");
 
-    // ==================== SELECTOR DE IDIOMA ====================
-    const btnIdioma = document.getElementById('btnIdioma');
-    const textos = {
-      es: { idioma: '🌐 ESPAÑOL', login: 'Iniciar sesión' },
-      en: { idioma: '🌐 ENGLISH', login: 'Log in' }
-    };
-    let idiomaActual = 'es';
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-    btnIdioma.addEventListener('click', () => {
-      idiomaActual = idiomaActual === 'es' ? 'en' : 'es';
-      btnIdioma.textContent = textos[idiomaActual].idioma;
-      mostrarAviso(idiomaActual === 'es' ? 'Idioma: Español' : 'Language: English');
-    });
+            const usuario = document.getElementById("usuario").value.trim();
+            const contrasena = document.getElementById("contrasena").value;
 
-    // ==================== CARRITO ====================
-    let carrito = [];
+            if (!usuario || !contrasena) {
+                alert(textos().alertaVacio);
+                return;
+            }
 
-    const contadorCarrito = document.getElementById('contadorCarrito');
-    const aviso = document.getElementById('aviso');
+            console.log("Intento de inicio de sesión:", usuario);
+        });
 
-    function actualizarContador() {
-      const total = carrito.reduce((suma, item) => suma + item.cantidad, 0);
-      contadorCarrito.textContent = total;
-    }
+        /* ---------- CARRITO (R-6) ---------- */
+        const cartCount = document.getElementById("cart-count");
+        const cartBtn = document.getElementById("cart-btn");
 
-    let tiempoAviso = null;
+        let carrito = [];
+        let totalUnidades = 0;
 
-    function mostrarAviso(mensaje) {
-      aviso.textContent = mensaje;
-      aviso.classList.add('aviso--visible');
+        /* Actualiza el indicador del carrito en la barra de navegación */
+        function actualizarIndicador() {
+            cartCount.textContent = totalUnidades;
 
-      clearTimeout(tiempoAviso);
-      tiempoAviso = setTimeout(() => {
-        aviso.classList.remove('aviso--visible');
-      }, 2000);
-    }
+            cartCount.classList.add("pulso");
+            setTimeout(function () {
+                cartCount.classList.remove("pulso");
+            }, 200);
+        }
 
-    function agregarAlCarrito(id, nombre, precio, cantidad) {
-      // Si la cantidad es 0, no se agrega nada
-      if (cantidad <= 0) {
-        mostrarAviso('Selecciona una cantidad mayor a 0');
-        return;
-      }
+        const tarjetas = document.querySelectorAll(".product-card");
 
-      const existente = carrito.find(item => item.id === id);
+        tarjetas.forEach(function (tarjeta) {
 
-      if (existente) {
-        // Si ya existe, se acumula la cantidad
-        existente.cantidad += cantidad;
-      } else {
-        carrito.push({ id, nombre, precio, cantidad });
-      }
+            const valor = tarjeta.querySelector(".qty-value");
+            const btnMas = tarjeta.querySelector(".qty-plus");
+            const btnMenos = tarjeta.querySelector(".qty-minus");
+            const btnComprar = tarjeta.querySelector(".btn-buy");
 
-      actualizarContador();
-      mostrarAviso(`${nombre} agregado al carrito (${cantidad})`);
-    }
+            btnMas.addEventListener("click", function () {
+                valor.textContent = Number(valor.textContent) + 1;
+            });
 
-    // ==================== EVENTOS DE LAS TARJETAS ====================
-    document.querySelectorAll('.tarjeta').forEach(tarjeta => {
-      const id = Number(tarjeta.dataset.id);
-      const nombre = tarjeta.dataset.nombre;
-      const precio = Number(tarjeta.dataset.precio);
+            btnMenos.addEventListener("click", function () {
+                const actual = Number(valor.textContent);
+                if (actual > 0) valor.textContent = actual - 1;
+            });
 
-      const valorCantidad = tarjeta.querySelector('.cantidad__valor');
-      const btnMenos = tarjeta.querySelector('.cantidad__menos');
-      const btnMas = tarjeta.querySelector('.cantidad__mas');
-      const btnComprar = tarjeta.querySelector('.btn-comprar');
+            btnComprar.addEventListener("click", function () {
 
-      btnMas.addEventListener('click', () => {
-        valorCantidad.textContent = Number(valorCantidad.textContent) + 1;
-      });
+                const cantidad = Number(valor.textContent);
+                const nombre = tarjeta.querySelector(".product-name").textContent;
+                const precio = Number(
+                    tarjeta.querySelector(".product-price").textContent.replace(/[^0-9.]/g, "")
+                );
+                const t = textos();
 
-      btnMenos.addEventListener('click', () => {
-        const actual = Number(valorCantidad.textContent);
-        if (actual > 0) valorCantidad.textContent = actual - 1;
-      });
+                /* Si la cantidad es 0, no se agrega nada al carrito */
+                if (cantidad === 0) {
+                    alert(t.alertaCantidad);
+                    return;
+                }
 
-      btnComprar.addEventListener('click', () => {
-        const cantidad = Number(valorCantidad.textContent);
-        agregarAlCarrito(id, nombre, precio, cantidad);
+                carrito.push({ nombre: nombre, cantidad: cantidad, precio: precio });
+                totalUnidades += cantidad;
 
-        if (cantidad > 0) valorCantidad.textContent = 0;
-      });
-    });
-  </script>
+                /* Se actualiza el indicador de la barra de navegación */
+                actualizarIndicador();
+
+                valor.textContent = 0;
+
+                alert(cantidad + " × " + nombre + " " + t.alertaAgregado);
+                console.log("Carrito:", carrito);
+            });
+        });
+
+        /* Clic en el icono del carrito: muestra lo que llevas */
+        cartBtn.addEventListener("click", function () {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+
+            let resumen = "Tu carrito:\n";
+            carrito.forEach(function (item) {
+                resumen += "• " + item.cantidad + " × " + item.nombre +
+                           " = " + (item.cantidad * item.precio) + " Bs\n";
+            });
+            resumen += "\nTotal: " + totalUnidades + " unidades";
+            alert(resumen);
+        });
+    </script>
+
 </body>
 </html>
-
