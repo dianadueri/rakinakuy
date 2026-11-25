@@ -370,6 +370,81 @@
         .btn-buy:hover {
             background-color: #26492E;
         }
+
+        /* ===== GALERÍA DE RECETAS (R-29) ===== */
+        .gallery-section {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .gallery-title {
+            margin: 0 0 18px;
+            font-size: 22px;
+            color: #2F5D3A;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .recipe-card {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            background-color: #FFFFFF;
+        }
+
+        .recipe-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .recipe-card:hover .recipe-img {
+            transform: scale(1.06);
+        }
+
+        .recipe-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 8px 10px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .gallery-more {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 4px;
+            background-color: #2F5D3A;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .gallery-more:hover {
+            background-color: #26492E;
+        }
     </style>
 </head>
 
@@ -563,6 +638,54 @@
 
         </section>
 
+        <!-- Galería de recetas oficiales (R-29) -->
+        <section class="gallery-section">
+
+            <h2 class="gallery-title" id="gallery-title">Recetas por Rakinakuy</h2>
+
+            <div class="gallery-grid" id="gallery-grid">
+
+                <article class="recipe-card">
+                    <img class="recipe-img"
+                         src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+                         alt="Ensalada de frutas">
+                    <div class="recipe-overlay" data-receta="Ensalada de frutas">Ensalada de frutas</div>
+                </article>
+
+                <article class="recipe-card">
+                    <img class="recipe-img"
+                         src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop"
+                         alt="Ensalada de arroz y pollo">
+                    <div class="recipe-overlay" data-receta="Ensalada de arroz y pollo">Ensalada de arroz y pollo</div>
+                </article>
+
+                <article class="recipe-card">
+                    <img class="recipe-img"
+                         src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop"
+                         alt="Ensalada de primavera">
+                    <div class="recipe-overlay" data-receta="Ensalada de primavera">Ensalada de primavera</div>
+                </article>
+
+                <article class="recipe-card">
+                    <img class="recipe-img"
+                         src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&h=300&fit=crop"
+                         alt="Ensalada de pollo y verduras">
+                    <div class="recipe-overlay" data-receta="Ensalada de pollo y verduras">Ensalada de pollo y verduras</div>
+                </article>
+
+                <article class="recipe-card">
+                    <img class="recipe-img"
+                         src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop"
+                         alt="Ensalada de atún">
+                    <div class="recipe-overlay" data-receta="Ensalada de atún">Ensalada de atún</div>
+                </article>
+
+            </div>
+
+            <button type="button" class="gallery-more" id="gallery-more">Ver más recetas</button>
+
+        </section>
+
     </main>
 
     <script>
@@ -578,10 +701,13 @@
                 etiquetaAvatar: "Seleccionar foto de perfil",
                 tituloProductos: "Productos",
                 comprar: "Comprar",
+                tituloGaleria: "Recetas por Rakinakuy",
+                verMas: "Ver más recetas",
                 alertaImagen: "Por favor, selecciona una imagen válida.",
                 alertaVacio: "Por favor, completa tu nombre de usuario y contraseña.",
                 alertaCantidad: "La cantidad es 0. Elige al menos 1 con el botón + para agregar al carrito.",
-                alertaAgregado: "agregado al carrito."
+                alertaAgregado: "agregado al carrito.",
+                alertaReceta: "Receta oficial Rakinakuy:"
             },
             qu: {
                 boton: "QUECHUA",
@@ -593,10 +719,13 @@
                 etiquetaAvatar: "Akllay qhawachikuyniykita",
                 tituloProductos: "Rurukuna",
                 comprar: "Rantiy",
+                tituloGaleria: "Rakinakuy ruwaykuna",
+                verMas: "Astawan ruwaykunata qhaway",
                 alertaImagen: "Akllay huk valida siq'i.",
                 alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita.",
                 alertaCantidad: "Hayk'a 0. Akllay hukmanta +wan carritoman yapay.",
-                alertaAgregado: "carritoman yapasqa."
+                alertaAgregado: "carritoman yapasqa.",
+                alertaReceta: "Rakinakuy ruway:"
             },
             ay: {
                 boton: "AYMARA",
@@ -608,10 +737,13 @@
                 etiquetaAvatar: "Ajllita qhawachawi",
                 tituloProductos: "Achuñanaka",
                 comprar: "Alaña",
+                tituloGaleria: "Rakinakuy phuqhañanaka",
+                verMas: "Juk'ampi phuqhañanaka uñjaña",
                 alertaImagen: "Ajllita huk valida samana.",
                 alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru.",
                 alertaCantidad: "Qhawqha 0. Ajllita mä + ukamp carritoruw yapxataña.",
-                alertaAgregado: "carritoruw yapxataña."
+                alertaAgregado: "carritoruw yapxataña.",
+                alertaReceta: "Rakinakuy phuqhaña:"
             }
         };
 
@@ -632,6 +764,8 @@
         const btnLogin = document.getElementById("btn-login");
         const productsTitle = document.getElementById("products-title");
         const buyButtons = document.querySelectorAll(".btn-buy");
+        const galleryTitle = document.getElementById("gallery-title");
+        const galleryMore = document.getElementById("gallery-more");
 
         /* ---------- CAMBIAR TEXTOS EN TIEMPO REAL ---------- */
         function aplicarIdioma(codigo) {
@@ -649,6 +783,8 @@
             buyButtons.forEach(function (b) {
                 b.textContent = t.comprar;
             });
+            galleryTitle.textContent = t.tituloGaleria;
+            galleryMore.textContent = t.verMas;
         }
 
         langBtn.addEventListener("click", function () {
@@ -773,6 +909,21 @@
             });
             resumen += "\nTotal: " + totalUnidades + " unidades";
             alert(resumen);
+        });
+
+        /* ---------- GALERÍA DE RECETAS (R-29) ---------- */
+        const recetas = document.querySelectorAll(".recipe-card");
+
+        recetas.forEach(function (receta) {
+            receta.addEventListener("click", function () {
+                const nombre = receta.querySelector(".recipe-overlay").dataset.receta;
+                alert(textos().alertaReceta + " " + nombre);
+            });
+        });
+
+        /* Botón "Ver más recetas" */
+        galleryMore.addEventListener("click", function () {
+            alert("Más recetas oficiales de Rakinakuy próximamente.");
         });
     </script>
 
