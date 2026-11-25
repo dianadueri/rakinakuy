@@ -280,6 +280,28 @@
         cursor: pointer;
       }
 
+      /* NUEVA TAREA: BOTON VER MAS RECETAS */
+
+      .boton-mas-recetas {
+        display: block;
+        width: 80%;
+        max-width: 360px;
+        height: 50px;
+        margin: 45px auto 0;
+        background-color: #285637;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-family: Georgia, serif;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .boton-mas-recetas:hover {
+        background-color: gray;
+      }
+
       /* DISEÑO RESPONSIVE */
 
       @media (max-width: 800px) {
@@ -477,6 +499,10 @@
           </button>
         </div>
       </div>
+
+      <!-- NUEVA TAREA: BOTON VER MAS RECETAS -->
+
+      <button type="button" class="boton-mas-recetas">Ver más Recetas</button>
     </section>
 
     <!-- JAVASCRIPT -->
@@ -529,7 +555,7 @@
         });
       });
 
-      /* NUEVA TAREA: NAVEGACION A LAS RECETAS */
+      /* NAVEGACION A LAS RECETAS */
 
       const botonHuerto = document.getElementById("botonHuerto");
       const botonPrimavera = document.getElementById("botonPrimavera");
