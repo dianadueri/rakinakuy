@@ -394,12 +394,19 @@
         .recipe-card {
             position: relative;
             width: 200px;
-            height: 150px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
             background-color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recipe-figure {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
         }
 
         .recipe-img {
@@ -425,6 +432,32 @@
             font-size: 13px;
             font-weight: bold;
             text-align: center;
+        }
+
+        /* Botón "Ver receta": verde -> gris al pasar el mouse */
+        .btn-recipe {
+            margin: 10px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #A8C66C;
+            color: #2F5D3A;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.25s, color 0.25s;
+        }
+
+        .btn-recipe:hover,
+        .btn-recipe:focus-visible {
+            background-color: #D9D9D9;
+            color: #555;
+            outline: none;
+        }
+
+        .btn-recipe:active {
+            background-color: #BFBFBF;
         }
 
         .gallery-more {
@@ -646,38 +679,53 @@
             <div class="gallery-grid" id="gallery-grid">
 
                 <article class="recipe-card">
-                    <img class="recipe-img"
-                         src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
-                         alt="Ensalada de frutas">
-                    <div class="recipe-overlay" data-receta="Ensalada de frutas">Ensalada de frutas</div>
+                    <div class="recipe-figure">
+                        <img class="recipe-img"
+                             src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+                             alt="Ensalada de frutas">
+                        <div class="recipe-overlay">Ensalada de frutas</div>
+                    </div>
+                    <button type="button" class="btn-recipe" data-receta="Ensalada de frutas">Ver receta</button>
                 </article>
 
                 <article class="recipe-card">
-                    <img class="recipe-img"
-                         src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop"
-                         alt="Ensalada de arroz y pollo">
-                    <div class="recipe-overlay" data-receta="Ensalada de arroz y pollo">Ensalada de arroz y pollo</div>
+                    <div class="recipe-figure">
+                        <img class="recipe-img"
+                             src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop"
+                             alt="Ensalada de arroz y pollo">
+                        <div class="recipe-overlay">Ensalada de arroz y pollo</div>
+                    </div>
+                    <button type="button" class="btn-recipe" data-receta="Ensalada de arroz y pollo">Ver receta</button>
                 </article>
 
                 <article class="recipe-card">
-                    <img class="recipe-img"
-                         src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop"
-                         alt="Ensalada de primavera">
-                    <div class="recipe-overlay" data-receta="Ensalada de primavera">Ensalada de primavera</div>
+                    <div class="recipe-figure">
+                        <img class="recipe-img"
+                             src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop"
+                             alt="Ensalada de primavera">
+                        <div class="recipe-overlay">Ensalada de primavera</div>
+                    </div>
+                    <button type="button" class="btn-recipe" data-receta="Ensalada de primavera">Ver receta</button>
                 </article>
 
                 <article class="recipe-card">
-                    <img class="recipe-img"
-                         src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&h=300&fit=crop"
-                         alt="Ensalada de pollo y verduras">
-                    <div class="recipe-overlay" data-receta="Ensalada de pollo y verduras">Ensalada de pollo y verduras</div>
+                    <div class="recipe-figure">
+                        <img class="recipe-img"
+                             src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&h=300&fit=crop"
+                             alt="Ensalada de pollo y verduras">
+                        <div class="recipe-overlay">Ensalada de pollo y verduras</div>
+                    </div>
+                    <button type="button" class="btn-recipe" data-receta="Ensalada de pollo y verduras">Ver receta</button>
                 </article>
 
                 <article class="recipe-card">
-                    <img class="recipe-img"
-                         src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop"
-                         alt="Ensalada de atún">
-                    <div class="recipe-overlay" data-receta="Ensalada de atún">Ensalada de atún</div>
+                    <div class="recipe-figure">
+                        <img class="recipe-img"
+                             src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop"
+                             alt="Ensalada de atún">
+                        <div class="recipe-overlay">Ensalada de atún</div>
+                    </div>
+                    <button type="button" class="btn-recipe" data-receta="Ensalada de atún">Ver receta</button>
                 </article>
 
             </div>
@@ -702,6 +750,7 @@
                 tituloProductos: "Productos",
                 comprar: "Comprar",
                 tituloGaleria: "Recetas por Rakinakuy",
+                verReceta: "Ver receta",
                 verMas: "Ver más recetas",
                 alertaImagen: "Por favor, selecciona una imagen válida.",
                 alertaVacio: "Por favor, completa tu nombre de usuario y contraseña.",
@@ -720,6 +769,7 @@
                 tituloProductos: "Rurukuna",
                 comprar: "Rantiy",
                 tituloGaleria: "Rakinakuy ruwaykuna",
+                verReceta: "Ruwayta qhaway",
                 verMas: "Astawan ruwaykunata qhaway",
                 alertaImagen: "Akllay huk valida siq'i.",
                 alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita.",
@@ -738,6 +788,7 @@
                 tituloProductos: "Achuñanaka",
                 comprar: "Alaña",
                 tituloGaleria: "Rakinakuy phuqhañanaka",
+                verReceta: "Phuqhaña uñjaña",
                 verMas: "Juk'ampi phuqhañanaka uñjaña",
                 alertaImagen: "Ajllita huk valida samana.",
                 alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru.",
@@ -765,6 +816,7 @@
         const productsTitle = document.getElementById("products-title");
         const buyButtons = document.querySelectorAll(".btn-buy");
         const galleryTitle = document.getElementById("gallery-title");
+        const recipeButtons = document.querySelectorAll(".btn-recipe");
         const galleryMore = document.getElementById("gallery-more");
 
         /* ---------- CAMBIAR TEXTOS EN TIEMPO REAL ---------- */
@@ -784,6 +836,9 @@
                 b.textContent = t.comprar;
             });
             galleryTitle.textContent = t.tituloGaleria;
+            recipeButtons.forEach(function (b) {
+                b.textContent = t.verReceta;
+            });
             galleryMore.textContent = t.verMas;
         }
 
@@ -912,12 +967,9 @@
         });
 
         /* ---------- GALERÍA DE RECETAS (R-29) ---------- */
-        const recetas = document.querySelectorAll(".recipe-card");
-
-        recetas.forEach(function (receta) {
-            receta.addEventListener("click", function () {
-                const nombre = receta.querySelector(".recipe-overlay").dataset.receta;
-                alert(textos().alertaReceta + " " + nombre);
+        recipeButtons.forEach(function (boton) {
+            boton.addEventListener("click", function () {
+                alert(textos().alertaReceta + " " + boton.dataset.receta);
             });
         });
 
@@ -926,6 +978,3 @@
             alert("Más recetas oficiales de Rakinakuy próximamente.");
         });
     </script>
-
-</body>
-</html>
