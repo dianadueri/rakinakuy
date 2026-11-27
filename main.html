@@ -373,6 +373,96 @@
       .popular-card { width: 100%; max-width: 340px; margin: 0 auto; }
       .popular-products__actions { margin-top: 32px; }
     }
+
+    /* R-30: Pie de página */
+    .site-footer {
+      width: 100%;
+      min-height: 304px;
+      margin-top: 0;
+      padding: 64px 36px 72px;
+      background: #19532B;
+      color: #FFFFFF;
+    }
+
+    .site-footer__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      align-items: start;
+      gap: 28px;
+      max-width: 1470px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .site-footer__brand { padding-top: 22px; }
+    .site-footer__logo {
+      display: block;
+      width: min(264px, 100%);
+      margin: 0 auto;
+    }
+    .site-footer__logo svg { display: block; width: 100%; height: auto; }
+    .site-footer__slogan {
+      max-width: 270px;
+      margin: 14px auto 0;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.22;
+    }
+    .site-footer__links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding-top: 7px;
+    }
+    .site-footer__link, .site-footer__heading {
+      color: #FFFFFF;
+      font-size: clamp(16px, 1.65vw, 24px);
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .site-footer__heading { margin: 0 0 22px; }
+    .site-footer__social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+    }
+    .site-footer__social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: #FFFFFF;
+      text-decoration: none;
+      transition: color .2s ease, transform .2s ease;
+    }
+    .site-footer__social-link svg { width: 100%; height: 100%; fill: currentColor; }
+    .site-footer__link, .site-footer__logo { transition: color .2s ease, opacity .2s ease; }
+    .site-footer__link:hover { color: #F6C640; text-decoration: underline; text-underline-offset: 4px; }
+    .site-footer__logo:hover { opacity: .8; }
+    .site-footer__social-link:hover { color: #F6C640; transform: translateY(-3px); }
+    .site-footer a:focus-visible { outline: 2px solid #F6C640; outline-offset: 5px; }
+    .site-footer__status { font-size: 13px; line-height: 1.4; margin: 12px 0 0; }
+    .site-footer__status:empty { display: none; }
+
+    @media (max-width: 900px) {
+      .site-footer { padding: 44px 24px; }
+      .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
+      .site-footer__brand, .site-footer__links { padding-top: 0; }
+      .site-footer__slogan { font-size: 20px; }
+    }
+    @media (max-width: 500px) {
+      .site-footer__grid { grid-template-columns: 1fr; }
+      .site-footer__logo { width: min(264px, 100%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-footer a { transition: none; }
+      .site-footer__social-link:hover { transform: none; }
+    }
   </style>
 </head>
 
@@ -538,7 +628,92 @@
       <h1 data-es="Perfil de usuario" data-en="User profile">Perfil de usuario</h1>
       <p data-es="Sección pendiente de desarrollo." data-en="Section under development.">Sección pendiente de desarrollo.</p>
     </section>
+    <section class="page-section" id="quienes-somos">
+      <h1 data-es="Quiénes somos" data-en="About us">Quiénes somos</h1>
+      <p data-es="Sección pendiente de desarrollo." data-en="Section under development.">Sección pendiente de desarrollo.</p>
+    </section>
+    <section class="page-section" id="soy-productor">
+      <h1 data-es="Soy productor" data-en="I am a producer">Soy productor</h1>
+      <p data-es="Sección pendiente de desarrollo." data-en="Section under development.">Sección pendiente de desarrollo.</p>
+    </section>
+    <section class="page-section" id="preguntas-frecuentes">
+      <h1 data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</h1>
+      <p data-es="Sección pendiente de desarrollo." data-en="Section under development.">Sección pendiente de desarrollo.</p>
+    </section>
   </main>
+
+  <!-- R-30: Pie de página -->
+  <footer class="site-footer" id="pie-de-pagina">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a class="site-footer__logo" href="#inicio" aria-label="Rakinakuy, Inicio" data-label-es="Rakinakuy, Inicio" data-label-en="Rakinakuy, Home">
+          <svg role="img" aria-labelledby="footer-logo-title" id="footer-Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336.42 53.76">
+        <title id="footer-logo-title">Rakinakuy</title>
+        <defs>
+          <style>
+            .footer-logo-fill {
+              fill: #fff;
+            }
+          </style>
+        </defs>
+        <g id="footer-Layer_1-2" data-name="Layer 1">
+          <g>
+            <g>
+              <path class="footer-logo-fill" d="M61.6,6.85c-.07-.17-.05-.35.06-.51.1-.15.26-.24.45-.24h18.05c4.34,0,8.76,1.1,12.05,4.05,2.61,2.33,4.16,5.57,4.26,9.07.08,2.65-.71,5.29-2.2,7.48-1.58,2.32-3.82,4.01-6.38,5.08l3.91,6.17,3.08,4.28c.12.17.14.38.04.57-.1.19-.28.3-.49.3h-11.31c-.19,0-.35-.09-.46-.25l-6.36-9.63h-3.12v5.41l1.49,3.71c.07.17.05.35-.06.51s-.27.24-.45.24h-12.07c-.19,0-.35-.09-.45-.24s-.12-.34-.05-.51l1.49-3.71V10.56l-1.49-3.71ZM73.2,27.07h4.49c11.23,0,11.23-14.82,0-14.82h-4.49v14.82Z"/>
+              <path class="footer-logo-fill" d="M129.85,42.37c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-10.55c-.3,0-.54-.24-.54-.54v-1.64c-2.59,1.96-5.62,2.81-8.94,2.81-3.64,0-7.33-1.38-8.84-4.95-1.5-3.54-.07-7.45,2.45-10.12,3.83-4.05,9.79-5.4,15.18-5.41.04,0,.09,0,.13,0-.06-.97-.33-2.04-1.18-2.57-3.5-2.19-9.04,1.01-11.96,3.09-.13.09-.29.12-.44.08-.16-.04-.28-.14-.35-.29l-2.33-4.84c-.07-.14-.07-.28-.02-.42.05-.14.15-.25.29-.3,7.78-3.35,26.1-4.24,26.1,7.95v12.7l1.49,3.71ZM118.27,27.87c-2.15.22-4.07,1.19-5.5,2.85-1.15,1.33-2.05,3.25-1.96,5.05.04.74.29,1.45.91,1.88,1.16.81,2.89.32,3.97-.38,1.71-1.11,2.58-2.98,2.58-5v-4.4Z"/>
+              <path class="footer-logo-fill" d="M144.62,26.8l6.41-9.92c.1-.16.26-.25.45-.25h8.39c.22,0,.41.13.5.33.09.21.04.43-.12.59l-9.72,9.67,10.8,15.03c.12.17.14.37.04.56s-.27.29-.48.29h-9.41c-.18,0-.33-.08-.43-.22l-6.44-8.96v4.73l1.49,3.71c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-12.07c-.18,0-.34-.08-.44-.24s-.12-.33-.05-.5l1.49-3.71V12.96l-1.79-2.97c-.09-.15-.1-.31-.04-.47.06-.16.18-.27.34-.32l1.87-.59s.01,0,.02,0l9.02-2.46c.17-.05.33-.01.47.09.14.1.21.25.21.43v20.14Z"/>
+              <path class="footer-logo-fill" d="M177.66,42.37c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-12.07c-.18,0-.34-.08-.44-.24-.1-.15-.12-.33-.05-.5l1.49-3.71v-15.18l-1.79-2.97c-.09-.15-.1-.31-.04-.47.06-.16.18-.27.34-.32l1.87-.59s.01,0,.02,0l9.02-2.46c.17-.05.33-.01.47.09s.21.25.21.43v21.47l1.49,3.71ZM170.91,4.22h.04s.06,0,.06,0c2.97,0,5.38,2.41,5.38,5.38s-2.41,5.4-5.38,5.38h-.1c-2.97,0-5.38-2.41-5.38-5.38s2.41-5.38,5.39-5.38Z"/>
+              <path class="footer-logo-fill" d="M199.06,38.65v-13.9c0-.65-.09-1.68-.75-2.02-.93-.48-2.66.37-3.47.82-.85.48-1.71,1.07-2.47,1.69v13.4l1.49,3.71c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-12.07c-.18,0-.34-.08-.44-.24-.1-.15-.12-.33-.05-.5l1.38-3.45v-15.62l-1.69-2.79c-.09-.15-.09-.31-.04-.47.06-.16.19-.27.35-.32l10.89-3.05c.17-.05.33-.02.47.09s.21.25.21.43v2.78c1.24-.98,2.5-1.95,3.88-2.71,1.7-.93,3.57-1.26,5.49-1.25,4.6.04,7.41,2.95,7.41,7.58v15.06l1.49,3.71c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-12.07c-.18,0-.34-.08-.44-.24-.1-.15-.12-.33-.05-.5l1.49-3.71Z"/>
+              <path class="footer-logo-fill" d="M242.77,42.37c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-10.55c-.3,0-.54-.24-.54-.54v-1.64c-2.59,1.96-5.62,2.81-8.94,2.81-3.64,0-7.33-1.38-8.84-4.95-1.5-3.54-.07-7.45,2.45-10.12,3.83-4.05,9.79-5.4,15.18-5.41.04,0,.09,0,.13,0-.06-.97-.33-2.04-1.18-2.57-3.5-2.19-9.04,1.01-11.96,3.09-.13.09-.29.12-.44.08-.16-.04-.28-.14-.35-.29l-2.33-4.84c-.07-.14-.07-.28-.02-.42.05-.14.15-.25.29-.3,7.78-3.35,26.1-4.24,26.1,7.95v12.7l1.49,3.71ZM231.19,27.87c-2.15.22-4.07,1.19-5.5,2.85-1.15,1.33-2.05,3.25-1.96,5.05.04.74.29,1.45.91,1.88,1.16.81,2.89.32,3.97-.38,1.71-1.11,2.58-2.98,2.58-5v-4.4Z"/>
+              <path class="footer-logo-fill" d="M257.54,26.8l6.41-9.92c.1-.16.26-.25.45-.25h8.39c.22,0,.41.13.5.33.09.21.04.43-.12.59l-9.72,9.67,10.8,15.03c.12.17.14.37.04.56s-.27.29-.48.29h-9.41c-.18,0-.33-.08-.43-.22l-6.44-8.96v4.73l1.49,3.71c.07.17.05.35-.05.5-.1.15-.26.24-.44.24h-12.07c-.18,0-.34-.08-.44-.24s-.12-.33-.05-.5l1.49-3.71V12.96l-1.79-2.97c-.09-.15-.1-.31-.04-.47.06-.16.18-.27.34-.32l1.87-.59s.01,0,.02,0l9.02-2.46c.17-.05.33-.01.47.09.14.1.21.25.21.43v20.14Z"/>
+              <path class="footer-logo-fill" d="M286.18,34.99c0,.65.09,1.68.75,2.02.92.48,2.66-.37,3.47-.82.85-.48,1.82-1.06,2.58-1.69v-11.02l-1.79-2.97c-.09-.15-.1-.31-.04-.47s.18-.27.34-.32l1.87-.59s.01,0,.02,0l9.02-2.46c.17-.05.33-.01.47.09.14.1.21.25.21.43v21.47l1.49,3.71c.07.17.05.35-.05.5s-.26.24-.44.24h-10.65c-.29,0-.54-.24-.54-.54v-2.78c-1.24.98-2.5,1.95-3.88,2.71-1.66.91-3.49,1.24-5.36,1.25-4.65.02-7.53-2.9-7.53-7.58v-12.68l-1.79-2.97c-.09-.15-.1-.31-.04-.47.06-.16.18-.27.34-.32l1.87-.59s.01,0,.02,0l9.02-2.46c.17-.05.33-.01.47.09.14.1.21.25.21.43v17.81Z"/>
+              <path class="footer-logo-fill" d="M323.78,34.36l2.8-17.26c.04-.26.26-.45.53-.45h8.79c.39,0,.65.4.49.75l-13.61,31.12c-1.73,3.95-4.32,5.37-8.96,5.24-1.38-.04-5.29-.9-6.36-1.7-.19-.14-.26-.37-.19-.6l2.09-6.38.34-1.06c.12-.36.58-.52.84-.25,1.26,1.25,5.42,5.59,7.37,4,1.63-1.33.42-3.41-.22-4.91-1.94-4.57-5.9-12.77-6.73-14.57l-5.03-10.88c-.17-.36.09-.76.49-.76h10.43c.22,0,.5.11.49.32l-.13,2.23,6.57,15.16Z"/>
+            </g>
+            <path class="footer-logo-fill" d="M44.65,44.67H0V15.33L22.32,0l22.33,15.33v29.34ZM5,39.67h34.65v-21.7L22.32,6.07,5,17.96v21.7Z"/>
+            <circle class="footer-logo-fill" cx="22.32" cy="18.61" r="4.07"/>
+            <g>
+              <path class="footer-logo-fill" d="M21.15,33.13c0,.85-.1,1.67-.29,2.46-.12.01-.25.01-.38.01-5.82,0-10.53-4.71-10.53-10.53,0-.85.1-1.68.29-2.47.12-.01.25-.01.37-.01,5.82,0,10.54,4.72,10.54,10.54Z"/>
+              <path class="footer-logo-fill" d="M23.5,33.13c0,.85.1,1.67.29,2.46.12.01.25.01.38.01,5.82,0,10.53-4.71,10.53-10.53,0-.85-.1-1.68-.29-2.47-.12-.01-.25-.01-.37-.01-5.82,0-10.54,4.72-10.54,10.54Z"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+        </a>
+        <p class="site-footer__slogan" data-es="Alimentos saludables hasta casa" data-en="Healthy food delivered to your home">Alimentos saludables hasta casa</p>
+      </div>
+
+      <nav class="site-footer__links" aria-label="Navegación del pie de página" data-label-es="Navegación del pie de página" data-label-en="Footer navigation">
+        <a class="site-footer__link" href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
+        <a class="site-footer__link" href="#compra" data-es="Compra" data-en="Shop">Compra</a>
+        <a class="site-footer__link" href="#mapa" data-es="Mapa" data-en="Map">Mapa</a>
+        <a class="site-footer__link" href="#recetas" data-es="Recetas" data-en="Recipes">Recetas</a>
+      </nav>
+
+      <nav class="site-footer__links" aria-label="Información institucional" data-label-es="Información institucional" data-label-en="Institutional information">
+        <a class="site-footer__link" href="#quienes-somos" data-es="Quiénes somos" data-en="About us">Quiénes somos</a>
+        <a class="site-footer__link" href="#soy-productor" data-es="Soy productor" data-en="I am a producer">Soy productor</a>
+        <a class="site-footer__link" href="#preguntas-frecuentes" data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</a>
+      </nav>
+
+      <div class="site-footer__networks" id="redes">
+        <h2 class="site-footer__heading" data-es="REDES" data-en="SOCIALS">REDES</h2>
+        <div class="site-footer__social">
+          <!-- Las URL oficiales se configuran en el script del footer. -->
+          <a class="site-footer__social-link" href="#redes" data-social="facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.098 4.388 23.091 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.792-4.696 4.533-4.696 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.49 0-1.956.931-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.091 24 18.098 24 12.073Z"/></svg>
+          </a>
+          <a class="site-footer__social-link" href="#redes" data-social="instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M7 0h10a7 7 0 0 1 7 7v10a7 7 0 0 1-7 7H7a7 7 0 0 1-7-7V7a7 7 0 0 1 7-7Zm5 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm0 2.3a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4Zm6.2-3.6a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1Z"/></svg>
+          </a>
+          <a class="site-footer__social-link" href="#redes" data-social="tiktok" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.9 2.9 0 1 1-2-2.76V9.4a6.34 6.34 0 1 0 5.45 6.27V8.75a8.16 8.16 0 0 0 4.77 1.52V6.82c-.34 0-.67-.04-1-.13Z"/></svg>
+          </a>
+        </div>
+        <p class="site-footer__status" id="footer-social-status" role="status"></p>
+      </div>
+    </div>
+  </footer>
+
 
   <script>
     // Cambia el idioma de los textos disponibles en este HTML.
@@ -593,6 +768,35 @@
       });
     });
     document.getElementById('idioma').addEventListener('change', actualizarCarritoDemo);
+  </script>
+
+  <script>
+    // R-30: Introducir aquí las URL verificadas de los perfiles oficiales.
+    const perfilesOficiales = {
+      facebook: '',
+      instagram: '',
+      tiktok: ''
+    };
+
+    const footerSocialStatus = document.getElementById('footer-social-status');
+    document.querySelectorAll('.site-footer__social-link').forEach(enlace => {
+      const url = perfilesOficiales[enlace.dataset.social];
+      if (url) {
+        enlace.href = url;
+      } else {
+        // No redirigir a perfiles ajenos ni abrir una pestaña vacía.
+        enlace.removeAttribute('target');
+        enlace.addEventListener('click', evento => {
+          evento.preventDefault();
+          footerSocialStatus.textContent = document.documentElement.lang === 'en'
+            ? 'Official profile link pending.'
+            : 'Enlace al perfil oficial pendiente de configuración.';
+        });
+      }
+    });
+    document.getElementById('idioma').addEventListener('change', () => {
+      footerSocialStatus.textContent = '';
+    });
   </script>
 </body>
 </html>
