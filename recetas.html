@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Listado de Recetas - Rakinakuy</title>
+    <title>Todas las Recetas - Rakinakuy</title>
 
     <style>
       body {
@@ -29,6 +29,8 @@
       .tarjeta {
         background-color: white;
         width: 300px;
+        max-width: 100%;
+        box-sizing: border-box;
         padding: 20px;
         border-radius: 20px;
       }
@@ -70,6 +72,8 @@
     <h1>Todas las Recetas</h1>
 
     <div class="lista-recetas">
+      <!-- ENSALADA DE HUERTO -->
+
       <div class="tarjeta">
         <img
           src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800"
@@ -78,10 +82,10 @@
 
         <h2>Ensalada de huerto</h2>
 
-        <button onclick="window.location.href = 'receta-huerto.html'">
-          Ver receta
-        </button>
+        <button type="button" id="botonHuerto">Ver receta</button>
       </div>
+
+      <!-- ENSALADA PRIMAVERA -->
 
       <div class="tarjeta">
         <img
@@ -91,17 +95,30 @@
 
         <h2>Ensalada Primavera</h2>
 
-        <button onclick="window.location.href = 'receta-primavera.html'">
-          Ver receta
-        </button>
+        <button type="button" id="botonPrimavera">Ver receta</button>
       </div>
     </div>
 
-    <button
-      class="boton-volver"
-      onclick="window.location.href = 'main.html#recetas'"
-    >
-      Volver
-    </button>
+    <!-- BOTON VOLVER -->
+
+    <button type="button" class="boton-volver" id="botonVolver">Volver</button>
+
+    <script>
+      const botonHuerto = document.getElementById("botonHuerto");
+      const botonPrimavera = document.getElementById("botonPrimavera");
+      const botonVolver = document.getElementById("botonVolver");
+
+      botonHuerto.addEventListener("click", function () {
+        window.location.href = "receta-huerto.html";
+      });
+
+      botonPrimavera.addEventListener("click", function () {
+        window.location.href = "receta-primavera.html";
+      });
+
+      botonVolver.addEventListener("click", function () {
+        window.location.href = "main.html#recetas";
+      });
+    </script>
   </body>
 </html>

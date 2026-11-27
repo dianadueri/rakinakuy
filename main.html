@@ -51,15 +51,13 @@
         font-family: Georgia, serif;
       }
 
-      /* R-06: MENSAJE DE ERROR */
+      /* MENSAJE DE ERROR */
 
       .mensaje-error {
         color: red;
         font-size: 14px;
         margin-top: 5px;
       }
-
-      /* BOTON REGISTRARSE */
 
       .boton-login {
         width: 100%;
@@ -95,8 +93,6 @@
         margin: 0;
       }
 
-      /* DISTRIBUCION DE PRODUCTOS */
-
       .lista-productos {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -129,8 +125,6 @@
         font-size: 19px;
         margin: 8px 0 5px;
       }
-
-      /* PRODUCTOR Y PRECIO */
 
       .info-producto {
         background-color: #52765b;
@@ -189,8 +183,6 @@
         background-color: #cccccc;
       }
 
-      /* BOTON COMPRAR */
-
       .boton-comprar {
         background-color: #285637;
         color: white;
@@ -208,7 +200,7 @@
         background-color: gray;
       }
 
-      /* SECCION ENCUENTRA RECETAS */
+      /* ENCUENTRA RECETAS */
 
       .seccion-recetas {
         padding: 50px 20px;
@@ -230,8 +222,6 @@
         max-width: 1100px;
         margin: auto;
       }
-
-      /* TARJETAS DE RECETAS */
 
       .tarjeta-receta {
         width: 450px;
@@ -280,7 +270,7 @@
         cursor: pointer;
       }
 
-      /* NUEVA TAREA: BOTON VER MAS RECETAS */
+      /* TAREA 1: BOTON VER MAS RECETAS */
 
       .boton-mas-recetas {
         display: block;
@@ -335,7 +325,7 @@
   </head>
 
   <body>
-    <!-- R-06: REGISTRO Y MANEJO DE ERRORES -->
+    <!-- REGISTRO DE USUARIO -->
 
     <div class="contenedor">
       <form class="formulario" id="formRegistro">
@@ -500,15 +490,17 @@
         </div>
       </div>
 
-      <!-- NUEVA TAREA: BOTON VER MAS RECETAS -->
+      <!-- TAREA 1: BOTON DEBAJO DE LAS RECETAS -->
 
-      <button type="button" class="boton-mas-recetas">Ver más Recetas</button>
+      <button type="button" class="boton-mas-recetas" id="botonMasRecetas">
+        Ver más Recetas
+      </button>
     </section>
 
     <!-- JAVASCRIPT -->
 
     <script>
-      /* R-06: MANEJO DE ERRORES */
+      /* MANEJO DE ERRORES */
 
       const usuariosExistentes = ["admin", "tatiana", "juan"];
 
@@ -527,8 +519,6 @@
         } else {
           errorUsuario.textContent = "";
         }
-
-        // Mantiene los datos de los demás campos.
       });
 
       /* CONTROLES DE CANTIDAD */
@@ -555,7 +545,7 @@
         });
       });
 
-      /* NAVEGACION A LAS RECETAS */
+      /* NAVEGACION A LAS RECETAS INDIVIDUALES */
 
       const botonHuerto = document.getElementById("botonHuerto");
       const botonPrimavera = document.getElementById("botonPrimavera");
@@ -566,6 +556,14 @@
 
       botonPrimavera.addEventListener("click", function () {
         window.location.href = "receta-primavera.html";
+      });
+
+      /* TAREA 2: NAVEGACION AL LISTADO GENERAL */
+
+      const botonMasRecetas = document.getElementById("botonMasRecetas");
+
+      botonMasRecetas.addEventListener("click", function () {
+        window.location.href = "recetas.html";
       });
     </script>
   </body>
