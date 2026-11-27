@@ -256,7 +256,7 @@
             background-color: #1D3A24;
         }
 
-        /* ===== PRODUCTOS (R-6) ===== */
+        /* ===== PRODUCTOS (R-6 / R-33) ===== */
         .products-section {
             width: 100%;
             max-width: 1000px;
@@ -269,15 +269,15 @@
             text-align: center;
         }
 
+        /* R-33: cuadrícula de cuatro columnas en escritorio */
         .products-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 18px;
         }
 
         .product-card {
-            width: 200px;
+            position: relative;
             background-color: #FFFFFF;
             border-radius: 10px;
             padding: 12px;
@@ -369,6 +369,30 @@
 
         .btn-buy:hover {
             background-color: #26492E;
+        }
+
+        /* Confirmación visual al agregar al carrito */
+        .toast {
+            position: absolute;
+            left: 50%;
+            bottom: 46px;
+            transform: translate(-50%, 12px);
+            padding: 7px 12px;
+            border-radius: 6px;
+            background-color: #2F5D3A;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, transform 0.25s;
+            z-index: 2;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
         }
 
         /* ===== GALERÍA DE RECETAS (R-29) ===== */
@@ -477,6 +501,24 @@
 
         .gallery-more:hover {
             background-color: #26492E;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -592,7 +634,7 @@
 
         </section>
 
-        <!-- Productos (R-6) -->
+        <!-- Productos (R-6 / R-33) -->
         <section class="products-section">
 
             <h2 class="products-title" id="products-title">Productos</h2>
@@ -614,6 +656,7 @@
                         </div>
                         <button type="button" class="btn-buy">Comprar</button>
                     </div>
+                    <span class="toast" aria-live="polite"></span>
                 </article>
 
                 <article class="product-card">
@@ -631,6 +674,7 @@
                         </div>
                         <button type="button" class="btn-buy">Comprar</button>
                     </div>
+                    <span class="toast" aria-live="polite"></span>
                 </article>
 
                 <article class="product-card">
@@ -648,6 +692,7 @@
                         </div>
                         <button type="button" class="btn-buy">Comprar</button>
                     </div>
+                    <span class="toast" aria-live="polite"></span>
                 </article>
 
                 <article class="product-card">
@@ -665,6 +710,7 @@
                         </div>
                         <button type="button" class="btn-buy">Comprar</button>
                     </div>
+                    <span class="toast" aria-live="polite"></span>
                 </article>
 
             </div>
@@ -755,8 +801,13 @@
                 alertaImagen: "Por favor, selecciona una imagen válida.",
                 alertaVacio: "Por favor, completa tu nombre de usuario y contraseña.",
                 alertaCantidad: "La cantidad es 0. Elige al menos 1 con el botón + para agregar al carrito.",
-                alertaAgregado: "agregado al carrito.",
-                alertaReceta: "Receta oficial Rakinakuy:"
+                confirmado: "¡Agregado al carrito!",
+                carritoVacio: "Tu carrito está vacío.",
+                carritoResumen: "Tu carrito:",
+                carritoTotal: "Total",
+                unidades: "unidades",
+                alertaReceta: "Receta oficial Rakinakuy:",
+                masRecetas: "Más recetas oficiales de Rakinakuy próximamente."
             },
             qu: {
                 boton: "QUECHUA",
@@ -774,8 +825,13 @@
                 alertaImagen: "Akllay huk valida siq'i.",
                 alertaVacio: "Hunt'achiy sutiykita hinaspa pakasqa simita.",
                 alertaCantidad: "Hayk'a 0. Akllay hukmanta +wan carritoman yapay.",
-                alertaAgregado: "carritoman yapasqa.",
-                alertaReceta: "Rakinakuy ruway:"
+                confirmado: "¡Carritoman yapasqa!",
+                carritoVacio: "Carritoyki ch'usaqmi.",
+                carritoResumen: "Carritoyki:",
+                carritoTotal: "Llapan",
+                unidades: "unidadkuna",
+                alertaReceta: "Rakinakuy ruway:",
+                masRecetas: "Astawan Rakinakuy ruwaykuna hamunqa."
             },
             ay: {
                 boton: "AYMARA",
@@ -793,8 +849,13 @@
                 alertaImagen: "Ajllita huk valida samana.",
                 alertaVacio: "Phuqhachta sutima ukhamaraki imantaña aru.",
                 alertaCantidad: "Qhawqha 0. Ajllita mä + ukamp carritoruw yapxataña.",
-                alertaAgregado: "carritoruw yapxataña.",
-                alertaReceta: "Rakinakuy phuqhaña:"
+                confirmado: "¡Carritoruw yapxataña!",
+                carritoVacio: "Carritomax q'umaraquiwa.",
+                carritoResumen: "Carritomaxa:",
+                carritoTotal: "Taqpacha",
+                unidades: "unidadanaka",
+                alertaReceta: "Rakinakuy phuqhaña:",
+                masRecetas: "Juk'ampi Rakinakuy phuqhañanaka jutani."
             }
         };
 
@@ -904,77 +965,148 @@
             }, 200);
         }
 
-        const tarjetas = document.querySelectorAll(".product-card");
+        /* Confirmación visual dentro de la tarjeta */
+        function mostrarConfirmacion(tarjeta, mensaje) {
+            const toast = tarjeta.querySelector(".toast");
+            if (!toast) return;
 
-        tarjetas.forEach(function (tarjeta) {
+            toast.textContent = mensaje;
+            toast.classList.add("visible");
 
-            const valor = tarjeta.querySelector(".qty-value");
-            const btnMas = tarjeta.querySelector(".qty-plus");
-            const btnMenos = tarjeta.querySelector(".qty-minus");
-            const btnComprar = tarjeta.querySelector(".btn-buy");
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(function () {
+                toast.classList.remove("visible");
+            }, 1800);
+        }
 
-            btnMas.addEventListener("click", function () {
-                valor.textContent = Number(valor.textContent) + 1;
+        /*
+        /* ---------- CARRITO (R-6 / R-33) ---------- */
+        const cartCount = document.getElementById("cart-count");
+        const cartBtn = document.getElementById("cart-btn");
+
+        let carrito = [];          // [{ nombre, precio, cantidad }]
+        let totalUnidades = 0;
+
+        /* Actualiza el indicador del carrito en la barra de navegación */
+        function actualizarIndicador() {
+            cartCount.textContent = totalUnidades;
+            cartCount.style.display = totalUnidades === 0 ? "none" : "block";
+
+            cartCount.classList.add("pulso");
+            setTimeout(function () {
+                cartCount.classList.remove("pulso");
+            }, 200);
+        }
+
+        /* Confirmación visual dentro de la tarjeta */
+        function mostrarConfirmacion(tarjeta, mensaje) {
+            const toast = tarjeta.querySelector(".toast");
+            if (!toast) return;
+
+            toast.textContent = mensaje;
+            toast.classList.add("visible");
+
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(function () {
+                toast.classList.remove("visible");
+            }, 1800);
+        }
+
+        /* Lee el precio numérico de la tarjeta ("4 Bs" -> 4) */
+        function leerPrecio(tarjeta) {
+            const texto = tarjeta.querySelector(".product-price").textContent;
+            const numero = parseFloat(texto.replace(/[^\d.,]/g, "").replace(",", "."));
+            return isNaN(numero) ? 0 : numero;
+        }
+
+        /* Agrega al carrito acumulando si el producto ya existe */
+        function agregarAlCarrito(nombre, precio, cantidad) {
+            const existente = carrito.find(function (item) {
+                return item.nombre === nombre;
             });
 
+            if (existente) {
+                existente.cantidad += cantidad;
+            } else {
+                carrito.push({ nombre: nombre, precio: precio, cantidad: cantidad });
+            }
+
+            totalUnidades += cantidad;
+            actualizarIndicador();
+        }
+
+        /* Conecta los botones + / − / Comprar de cada tarjeta */
+        document.querySelectorAll(".product-card").forEach(function (tarjeta) {
+
+            const valor = tarjeta.querySelector(".qty-value");
+            const btnMenos = tarjeta.querySelector(".qty-minus");
+            const btnMas = tarjeta.querySelector(".qty-plus");
+            const btnComprar = tarjeta.querySelector(".btn-buy");
+            const nombre = tarjeta.querySelector(".product-name").textContent.trim();
+
             btnMenos.addEventListener("click", function () {
-                const actual = Number(valor.textContent);
-                if (actual > 0) valor.textContent = actual - 1;
+                let n = parseInt(valor.textContent, 10) || 0;
+                if (n > 0) valor.textContent = n - 1;
+            });
+
+            btnMas.addEventListener("click", function () {
+                let n = parseInt(valor.textContent, 10) || 0;
+                valor.textContent = n + 1;
             });
 
             btnComprar.addEventListener("click", function () {
+                const cantidad = parseInt(valor.textContent, 10) || 0;
 
-                const cantidad = Number(valor.textContent);
-                const nombre = tarjeta.querySelector(".product-name").textContent;
-                const precio = Number(
-                    tarjeta.querySelector(".product-price").textContent.replace(/[^0-9.]/g, "")
-                );
-                const t = textos();
-
-                /* Si la cantidad es 0, no se agrega nada al carrito */
+                /* Criterio: si la cantidad es 0, no se agrega ningún producto */
                 if (cantidad === 0) {
-                    alert(t.alertaCantidad);
+                    mostrarConfirmacion(tarjeta, textos().alertaCantidad);
                     return;
                 }
 
-                carrito.push({ nombre: nombre, cantidad: cantidad, precio: precio });
-                totalUnidades += cantidad;
-
-                /* Se actualiza el indicador de la barra de navegación */
-                actualizarIndicador();
-
-                valor.textContent = 0;
-
-                alert(cantidad + " × " + nombre + " " + t.alertaAgregado);
-                console.log("Carrito:", carrito);
+                agregarAlCarrito(nombre, leerPrecio(tarjeta), cantidad);
+                mostrarConfirmacion(tarjeta, textos().confirmado);
+                valor.textContent = "0";
             });
         });
 
-        /* Clic en el icono del carrito: muestra lo que llevas */
+        /* Resumen del carrito al pulsar el ícono de la barra */
         cartBtn.addEventListener("click", function () {
+            const t = textos();
+
             if (carrito.length === 0) {
-                alert("Tu carrito está vacío.");
+                alert(t.carritoVacio);
                 return;
             }
 
-            let resumen = "Tu carrito:\n";
+            let total = 0;
+            let lineas = t.carritoResumen + "\n\n";
+
             carrito.forEach(function (item) {
-                resumen += "• " + item.cantidad + " × " + item.nombre +
-                           " = " + (item.cantidad * item.precio) + " Bs\n";
+                total += item.precio * item.cantidad;
+                lineas += "• " + item.nombre + " — " + item.cantidad + " " + t.unidades +
+                          " — " + (item.precio * item.cantidad) + " Bs\n";
             });
-            resumen += "\nTotal: " + totalUnidades + " unidades";
-            alert(resumen);
+
+            lineas += "\n" + t.carritoTotal + ": " + total + " Bs";
+            alert(lineas);
         });
 
-        /* ---------- GALERÍA DE RECETAS (R-29) ---------- */
+        /* ---------- RECETAS (R-29) ---------- */
         recipeButtons.forEach(function (boton) {
             boton.addEventListener("click", function () {
-                alert(textos().alertaReceta + " " + boton.dataset.receta);
+                const t = textos();
+                alert(t.alertaReceta + " " + boton.dataset.receta);
             });
         });
 
-        /* Botón "Ver más recetas" */
         galleryMore.addEventListener("click", function () {
-            alert("Más recetas oficiales de Rakinakuy próximamente.");
+            alert(textos().masRecetas);
         });
+
+        /* ---------- INICIO ---------- */
+        aplicarIdioma(ordenIdiomas[idiomaActual]);
+        actualizarIndicador();
     </script>
+
+</body>
+</html>
