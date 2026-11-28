@@ -60,16 +60,17 @@
 
   /* ===== R-8 Recetas destacadas ===== */
   .featured-grid{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
-  .blob{position:relative;width:min(300px,86vw);aspect-ratio:1/.9;overflow:hidden;
+  .blob{position:relative;width:min(420px,90vw);aspect-ratio:1/.95;overflow:hidden;
         border-radius:58% 42% 55% 45% / 48% 55% 45% 52%;box-shadow:0 8px 20px rgba(0,0,0,.18);
         transition:transform .25s}
   .blob:nth-child(2){border-radius:45% 55% 40% 60% / 55% 45% 55% 45%}
   .blob:hover{transform:scale(1.03)}
   .blob img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .blob::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0) 60%)}
-  .blob .caption{position:absolute;z-index:2;left:1.3rem;right:1.3rem;bottom:1.2rem;color:#fff}
-  .blob h3{font-family:var(--font-title);font-weight:900;font-size:1.5rem;line-height:1.1;margin-bottom:.5rem;
+  .blob .caption{position:absolute;z-index:2;left:2.6rem;right:2rem;bottom:2.8rem;color:#fff}
+  .blob h3{font-family:var(--font-title);font-weight:900;font-size:2rem;line-height:1.1;margin-bottom:.8rem;
            text-shadow:0 2px 6px rgba(0,0,0,.5)}
+  .blob .btn-white{font-size:.95rem;padding:.5rem 1.3rem}
 
   /* ===== R-30 Galería – Recetas de la comunidad ===== */
   .community-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:560px;margin:0 auto 2rem}
@@ -94,6 +95,25 @@
                    transition:background .2s}
   .avatar-up label:hover{background:#163a20}
   .avatar-up input{display:none}
+
+  /* ===== R-38 Compra – Selector de cantidad ===== */
+  .shop-card{width:240px;margin:0 auto;background:#fff;border-radius:14px;padding:.8rem;
+             box-shadow:0 6px 18px rgba(0,0,0,.15)}
+  .shop-card img{width:100%;height:160px;object-fit:contain;background:#f6f6f6;border-radius:8px}
+  .shop-card h3{font-family:var(--font-title);font-weight:900;font-size:1.1rem;color:var(--green-dark);margin:.6rem 0 .5rem}
+  .shop-tag{display:flex;justify-content:center;gap:.5rem;background:#5a7a60;color:#fff;border-radius:6px;
+            padding:.4rem;font-size:.75rem;font-weight:700;text-transform:uppercase}
+  .shop-actions{display:flex;align-items:center;justify-content:space-between;margin-top:.8rem}
+  .qty{display:flex;align-items:center;gap:.4rem}
+  .qty button{width:28px;height:28px;border:0;border-radius:8px;background:#f5c842;color:#222;
+              font-size:1rem;font-weight:800;cursor:pointer;transition:background .2s}
+  .qty button:hover{background:#e6b52a}
+  .qty output{min-width:1.6rem;text-align:center;font-weight:700;font-size:1.3rem}
+  .buy-msg{margin-top:1rem;font-size:.9rem;color:var(--green-dark);min-height:1.3rem;text-align:center}
+  .cart-btn{position:relative}
+  .cart-badge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;
+              background:#e0412f;color:#fff;font-size:.7rem;font-weight:700;display:grid;place-items:center}
+  .cart-badge[hidden]{display:none}
 
   /* ===== R-11 Inicio – Pie de página ===== */
   footer{background:var(--green-dark);color:#fff;padding:2.5rem 1.25rem}
@@ -140,7 +160,8 @@
       <li><a href="#recetas">Recetas</a></li>
     </ul>
     <div class="nav-tools">
-      <button class="icon-btn" aria-label="Carrito" title="Carrito">
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Carrito" title="Carrito">
+        <span class="cart-badge" id="cartBadge" hidden>0</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.2a1 1 0 0 0 1-.8L21 7H6"/></svg>
       </button>
       <!-- El ícono de perfil se mantiene en la navegación mientras haya sesión -->
@@ -208,6 +229,24 @@
   </div>
 </section>
 
+<!-- ===================== R-38. COMPRA – SELECTOR DE CANTIDAD ===================== -->
+<section class="block" id="compra">
+  <article class="shop-card">
+    <img src="images/manzana.png" alt="Manzana">
+    <h3>Manzana</h3>
+    <div class="shop-tag"><span>Granja Ramirez</span><span>4 Bs</span></div>
+    <div class="shop-actions">
+      <div class="qty">
+        <button type="button" id="qtyMinus" aria-label="Quitar una unidad">−</button>
+        <output id="qtyValue" aria-live="polite">0</output>
+        <button type="button" id="qtyPlus" aria-label="Agregar una unidad">+</button>
+      </div>
+      <button class="btn" type="button" id="buyBtn">Comprar</button>
+    </div>
+  </article>
+  <p class="buy-msg" id="buyMsg" role="status"></p>
+</section>
+
 </main>
 
 <!-- ===================== R-11. INICIO – PIE DE PÁGINA ===================== -->
@@ -259,7 +298,6 @@
 
 <script>
 /* ============ Recetas ============ */
-// Cambia aquí el nombre de archivo de cada imagen si alguna no coincide con su tarjeta.
 const stepsBase = [
   'Lava y prepara todos los ingredientes frescos.',
   'Corta y mezcla según el gusto.',
@@ -272,10 +310,10 @@ const featured = {
 const community = [
   {title:'Ensalada con Frutos Rojos', img:'images/frambuesa.png'},
   {title:'Banana Split',              img:'images/platano.png'},
-  {title:'Jugo de naranja',           img:'images/jugo.png'},
-  {title:'Green Juice',               img:'images/verde.png'},
+  {title:'Jugo de naranja',           img:'images/naranja.png'},
+  {title:'Green Juice',               img:'images/jugo.png'},
   {title:'Helado de Maracuyá',        img:'images/mango.png'},
-  {title:'Ensalada Piamontesa',       img:'images/naranja.png'}
+  {title:'Ensalada Piamontesa',       img:'images/verde.png'}
 ];
 
 const grid = document.getElementById('communityGrid');
@@ -307,6 +345,28 @@ modal.addEventListener('click', e=>{ if(e.target===modal) modal.close(); });
 document.getElementById('moreBtn').onclick = ()=>{
   // Punto de conexión: aquí se cargarían más recetas de la comunidad (API o página aparte).
   document.getElementById('moreMsg').textContent = 'Pronto verás más recetas de la comunidad.';
+};
+
+/* ============ Compra – selector de cantidad (R-38) ============ */
+const PRICE = 4;                         // Bs por unidad
+const qtyValue = document.getElementById('qtyValue');
+const buyMsg   = document.getElementById('buyMsg');
+const cartBadge = document.getElementById('cartBadge');
+let qty = 0, cartUnits = 0;
+
+document.getElementById('qtyPlus').onclick = ()=>{
+  if(qty < 99){ qty++; qtyValue.textContent = qty; buyMsg.textContent = ''; }
+};
+document.getElementById('qtyMinus').onclick = ()=>{
+  if(qty > 0){ qty--; qtyValue.textContent = qty; buyMsg.textContent = ''; }
+};
+document.getElementById('buyBtn').onclick = ()=>{
+  if(qty === 0){ buyMsg.textContent = 'Selecciona al menos 1 unidad.'; return; }
+  cartUnits += qty;
+  cartBadge.textContent = cartUnits;
+  cartBadge.hidden = false;
+  buyMsg.textContent = `Agregaste ${qty} ${qty===1?'unidad':'unidades'} de Manzana (${qty*PRICE} Bs).`;
+  qty = 0; qtyValue.textContent = 0;
 };
 
 /* ============ Avatar (R-02) + sesión persistente (R-11 Login) ============ */
