@@ -1,702 +1,347 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakinakuy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rakinakuy – Alimentos saludables hasta casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-dark:#2a5230;
+    --green-btn:#1f4d2b;
+    --green-lime:#b7d63f;
+    --cream:#f3ead0;
+    --ink:#1e1e1e;
+    --font-title:'Fraunces',Georgia,serif;
+    --font-body:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font-body);background:var(--cream);color:var(--ink);line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .btn{display:inline-block;border:0;cursor:pointer;font-family:var(--font-body);font-weight:600;
+       background:var(--green-btn);color:#fff;border-radius:6px;padding:.6rem 1.2rem;font-size:.95rem;
+       transition:background .2s, transform .2s, color .2s}
+  .btn:hover{background:#163a20;transform:translateY(-1px)}
+  .btn-white{background:#fff;color:var(--green-btn);padding:.3rem .9rem;font-size:.8rem;border-radius:5px}
+  .btn-white:hover{background:var(--green-btn);color:#fff}
+  .section-title{font-family:var(--font-title);font-weight:900;color:var(--green-dark);
+                 text-align:center;font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  section.block{padding:3rem 1.25rem}
+  .center{text-align:center}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  /* ===== Navegación global (R-11 Login – Persistencia de sesión) ===== */
+  header.nav{background:var(--green-dark);position:sticky;top:0;z-index:50}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;padding:.7rem 1.25rem}
+  .logo{font-family:var(--font-title);font-weight:900;color:#fff;font-size:1.4rem;display:flex;align-items:center;gap:.4rem}
+  .nav-links{display:flex;gap:1.5rem;margin-left:auto;list-style:none}
+  .nav-links a{color:#fff;font-weight:600;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+  .nav-links a:hover{color:var(--green-lime)}
+  .nav-tools{display:flex;align-items:center;gap:.6rem}
+  .icon-btn{width:38px;height:38px;border-radius:9px;border:0;background:var(--green-lime);color:var(--green-dark);
+            display:grid;place-items:center;cursor:pointer}
+  .avatar-nav{width:38px;height:38px;border-radius:50%;border:2px solid var(--green-lime);background:#fff;
+              overflow:hidden;display:grid;place-items:center;cursor:pointer;padding:0}
+  .avatar-nav img{width:100%;height:100%;object-fit:cover}
+  .lang-btn{background:var(--green-lime);color:var(--green-dark);border:0;border-radius:9px;
+            padding:.45rem .8rem;font-weight:700;font-size:.85rem;cursor:pointer}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7efcf;
-            color: #194d2d;
-        }
+  /* ===== R-3 Banner principal ===== */
+  .banner{position:relative;min-height:440px;display:flex;align-items:center;
+          background:url('images/banner.png') center/cover no-repeat, var(--cream)}
+  .banner::before{content:"";position:absolute;inset:0;
+          background:linear-gradient(90deg,rgba(243,234,208,.92) 0%,rgba(243,234,208,.7) 38%,rgba(243,234,208,0) 70%)}
+  .banner-content{position:relative;max-width:1200px;margin:0 auto;padding:2rem 1.25rem;width:100%}
+  .banner h1{font-family:var(--font-title);font-weight:900;color:var(--green-dark);
+             font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;max-width:420px;margin-bottom:1.2rem}
+  .banner p{font-weight:600;font-size:1.05rem;color:#1b1b1b;margin-bottom:1rem}
 
-        header {
-            background: #14532d;
-            padding: 15px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-        }
+  /* ===== R-8 Recetas destacadas ===== */
+  .featured-grid{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .blob{position:relative;width:min(300px,86vw);aspect-ratio:1/.9;overflow:hidden;
+        border-radius:58% 42% 55% 45% / 48% 55% 45% 52%;box-shadow:0 8px 20px rgba(0,0,0,.18);
+        transition:transform .25s}
+  .blob:nth-child(2){border-radius:45% 55% 40% 60% / 55% 45% 55% 45%}
+  .blob:hover{transform:scale(1.03)}
+  .blob img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .blob::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0) 60%)}
+  .blob .caption{position:absolute;z-index:2;left:1.3rem;right:1.3rem;bottom:1.2rem;color:#fff}
+  .blob h3{font-family:var(--font-title);font-weight:900;font-size:1.5rem;line-height:1.1;margin-bottom:.5rem;
+           text-shadow:0 2px 6px rgba(0,0,0,.5)}
 
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-        }
+  /* ===== R-30 Galería – Recetas de la comunidad ===== */
+  .community-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:560px;margin:0 auto 2rem}
+  .rc{position:relative;aspect-ratio:1/1.05;overflow:hidden;border-radius:8px;background:#fff;
+      border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .25s, box-shadow .25s}
+  .rc:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,.25)}
+  .rc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .rc::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.4),rgba(0,0,0,0) 55%)}
+  .rc .caption{position:absolute;z-index:2;left:.6rem;right:.6rem;top:.6rem;color:#fff}
+  .rc h3{font-family:var(--font-title);font-weight:900;font-size:1rem;line-height:1.05;text-shadow:0 2px 4px rgba(0,0,0,.6)}
+  .rc .btn-white{position:absolute;z-index:2;left:.6rem;bottom:.6rem;font-size:.7rem;padding:.2rem .7rem}
+  .more-msg{margin-top:1rem;font-size:.9rem;color:var(--green-dark);min-height:1.3rem}
+  @media(max-width:560px){.community-grid{grid-template-columns:repeat(2,1fr)}}
 
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+  /* ===== R-02 Registro – Carga de avatar ===== */
+  .avatar-up{position:relative;width:150px;height:150px;margin:0 auto}
+  .avatar-up .circle{width:100%;height:100%;border-radius:50%;border:3px solid #111;background:#fff;
+                     overflow:hidden;display:grid;place-items:center}
+  .avatar-up .circle img{width:100%;height:100%;object-fit:cover}
+  .avatar-up label{position:absolute;right:4px;bottom:4px;width:40px;height:40px;border-radius:10px;
+                   background:var(--green-btn);color:#fff;display:grid;place-items:center;cursor:pointer;
+                   transition:background .2s}
+  .avatar-up label:hover{background:#163a20}
+  .avatar-up input{display:none}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+  /* ===== R-11 Inicio – Pie de página ===== */
+  footer{background:var(--green-dark);color:#fff;padding:2.5rem 1.25rem}
+  .footer-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1.3fr .8fr;gap:2rem;align-items:start}
+  footer .logo{font-size:1.7rem}
+  footer .tag{font-size:.85rem;opacity:.9;margin-top:.4rem;max-width:180px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:.35rem}
+  footer a{font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+  footer a:hover{color:var(--green-lime)}
+  .redes h4{font-size:.8rem;text-transform:uppercase;margin-bottom:.6rem}
+  .social{display:flex;gap:.8rem}
+  .social a{display:grid;place-items:center}
+  .social svg{width:24px;height:24px;fill:#fff;transition:fill .2s}
+  .social a:hover svg{fill:var(--green-lime)}
+  @media(max-width:760px){
+    .footer-inner{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+    .nav-tools{margin-left:auto}
+  }
 
-        .nav-derecha {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar-navbar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #c4d600;
-            cursor: pointer;
-        }
-
-        .boton-sesion {
-            background: #c4d600;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        main {
-            padding: 45px 8%;
-        }
-
-        .titulo-seccion {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .titulo-seccion h1 {
-            font-size: 32px;
-            color: #27643b;
-            margin-bottom: 10px;
-        }
-
-        .recetas-extra {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        .tarjeta-receta {
-            width: 280px;
-            height: 200px;
-            border-radius: 45px;
-            overflow: hidden;
-            position: relative;
-            background: #ddd;
-        }
-
-        .tarjeta-receta img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .texto-receta {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                transparent,
-                rgba(0, 0, 0, 0.75)
-            );
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-start;
-            padding: 20px;
-            color: white;
-        }
-
-        .texto-receta h3 {
-            font-size: 21px;
-            margin-bottom: 12px;
-        }
-
-        .boton-receta {
-            background: white;
-            color: #14532d;
-            border: none;
-            padding: 9px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .boton-receta:hover {
-            background: #c4d600;
-        }
-
-        .ver-mas {
-            display: block;
-            margin: 25px auto;
-            background: #14532d;
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .contenedor-registro {
-            margin: 70px auto;
-            max-width: 450px;
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .contenedor-registro h2 {
-            margin-bottom: 25px;
-            color: #14532d;
-        }
-
-        .avatar-container {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 20px;
-            position: relative;
-        }
-
-        .avatar-preview {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #14532d;
-            background: white;
-        }
-
-        .avatar-upload {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 40px;
-            height: 40px;
-            background: #14532d;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 23px;
-            cursor: pointer;
-        }
-
-        .contenedor-registro input[type="text"],
-        .contenedor-registro input[type="email"],
-        .contenedor-registro input[type="password"] {
-            width: 100%;
-            padding: 13px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        .boton-principal {
-            width: 100%;
-            padding: 13px;
-            background: #14532d;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .boton-principal:hover {
-            background: #27643b;
-        }
-
-        .mensaje {
-            margin-top: 15px;
-            color: #14532d;
-            font-size: 14px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 1000;
-        }
-
-        .modal-contenido {
-            background: #f7efcf;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-        }
-
-        .modal-contenido h2 {
-            margin-bottom: 15px;
-            color: #14532d;
-        }
-
-        .cerrar-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            border: none;
-            background: none;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        footer {
-            background: #14532d;
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-
-        @media (max-width: 650px) {
-            header {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            nav {
-                gap: 12px;
-                flex-wrap: wrap;
-            }
-
-            main {
-                padding: 35px 5%;
-            }
-
-            .tarjeta-receta {
-                width: 100%;
-                max-width: 320px;
-            }
-        }
-    </style>
+  /* Modal receta */
+  dialog{border:0;border-radius:14px;padding:1.5rem;max-width:480px;width:92vw;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+  dialog::backdrop{background:rgba(0,0,0,.55)}
+  dialog h3{font-family:var(--font-title);color:var(--green-dark);font-size:1.6rem;margin-bottom:.8rem}
+  dialog img{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:1rem}
+  dialog ol{padding-left:1.2rem;margin-bottom:1rem}
+  dialog .note{font-size:.75rem;color:#777;margin-bottom:1rem}
+</style>
 </head>
-
 <body>
 
-    <!-- NAVEGACIÓN -->
-    <header>
-
-        <div class="logo">RAKINAKUY</div>
-
-        <nav>
-            <a href="#inicio">INICIO</a>
-            <a href="#recetas">RECETAS</a>
-            <a href="#registro">REGISTRO</a>
-        </nav>
-
-        <div class="nav-derecha">
-
-            <img
-                id="avatarNavbar"
-                class="avatar-navbar"
-                src="images/avatar-default.png"
-                alt="Avatar del usuario"
-                title="Mi perfil"
-            >
-
-            <button
-                class="boton-sesion"
-                id="botonSesion"
-                type="button"
-                onclick="cerrarSesion()"
-            >
-                Iniciar sesión
-            </button>
-
-        </div>
-
-    </header>
-
-
-    <!-- INICIO -->
-    <main id="inicio">
-
-        <!-- RECETAS DESTACADAS -->
-        <section id="recetas">
-
-            <div class="titulo-seccion">
-                <h1>Encuentra Recetas</h1>
-                <p>Descubre nuevas recetas para compartir.</p>
-            </div>
-
-            <div class="recetas-extra" id="recetasExtra">
-
-                <!-- ENSALADA DE HUERTO -->
-                <article class="tarjeta-receta">
-
-                    <img
-                        src="images/ensalada1.png"
-                        alt="Ensalada de huerto"
-                    >
-
-                    <div class="texto-receta">
-
-                        <h3>Ensalada de huerto</h3>
-
-                        <button
-                            class="boton-receta"
-                            type="button"
-                            data-receta="ensalada-huerto"
-                        >
-                            Ver receta
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ENSALADA PRIMAVERA -->
-                <article class="tarjeta-receta">
-
-                    <img
-                        src="images/ensalada2.png"
-                        alt="Ensalada Primavera"
-                    >
-
-                    <div class="texto-receta">
-
-                        <h3>Ensalada Primavera</h3>
-
-                        <button
-                            class="boton-receta"
-                            type="button"
-                            data-receta="ensalada-primavera"
-                        >
-                            Ver receta
-                        </button>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-            <button class="ver-mas" type="button">
-                Ver más Recetas
-            </button>
-
-        </section>
-
-
-        <!-- REGISTRO Y CARGA DE AVATAR -->
-        <section id="registro">
-
-            <div class="contenedor-registro">
-
-                <h2>Mi perfil</h2>
-
-                <!-- AVATAR -->
-                <div class="avatar-container">
-
-                    <img
-                        id="avatarPreview"
-                        class="avatar-preview"
-                        src="images/avatar-default.png"
-                        alt="Foto de perfil"
-                    >
-
-                    <label
-                        for="avatarInput"
-                        class="avatar-upload"
-                        title="Subir fotografía"
-                    >
-                        ↑
-                    </label>
-
-                </div>
-
-                <input
-                    type="file"
-                    id="avatarInput"
-                    accept="image/*"
-                    hidden
-                >
-
-                <p>Selecciona una fotografía para tu perfil.</p>
-
-                <br>
-
-                <!-- DATOS DEL USUARIO -->
-                <form id="formRegistro">
-
-                    <input
-                        type="text"
-                        id="nombreUsuario"
-                        placeholder="Nombre completo"
-                        required
-                    >
-
-                    <input
-                        type="email"
-                        id="correoUsuario"
-                        placeholder="Correo electrónico"
-                        required
-                    >
-
-                    <input
-                        type="password"
-                        id="passwordUsuario"
-                        placeholder="Contraseña"
-                        required
-                    >
-
-                    <button
-                        type="submit"
-                        class="boton-principal"
-                    >
-                        Crear cuenta
-                    </button>
-
-                </form>
-
-                <p id="mensajeRegistro" class="mensaje"></p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- MODAL DE RECETAS -->
-    <div class="modal" id="modalReceta">
-
-        <div class="modal-contenido">
-
-            <button
-                class="cerrar-modal"
-                type="button"
-                id="cerrarModal"
-            >
-                ×
-            </button>
-
-            <h2 id="tituloModal"></h2>
-
-            <p id="descripcionModal"></p>
-
-        </div>
-
+<!-- ===================== NAVEGACIÓN GLOBAL ===================== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#inicio" class="logo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10H3z"/><path d="M12 17c-2-2-2-4 0-6 2 2 2 4 0 6z"/></svg>
+      Rakinakuy
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="compra.html">Compra</a></li>
+      <li><a href="mapa.html">Mapa</a></li>
+      <li><a href="#recetas">Recetas</a></li>
+    </ul>
+    <div class="nav-tools">
+      <button class="icon-btn" aria-label="Carrito" title="Carrito">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.2a1 1 0 0 0 1-.8L21 7H6"/></svg>
+      </button>
+      <!-- El ícono de perfil se mantiene en la navegación mientras haya sesión -->
+      <a href="#autenticacion" class="avatar-nav" id="navAvatar" aria-label="Perfil" title="Perfil">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2a5230" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>
+      </a>
+      <button class="lang-btn" type="button">🌐 ESPAÑOL</button>
     </div>
-
-
-    <!-- FOOTER -->
-    <footer>
-        <p>RAKINAKUY © 2026 - Compartiendo sabores y comunidad.</p>
-    </footer>
-
-
-    <!-- JAVASCRIPT -->
-    <script>
-
-        // CARGAR INFORMACIÓN GUARDADA
-        document.addEventListener("DOMContentLoaded", function() {
-
-            const avatarGuardado =
-                localStorage.getItem("avatarUsuario");
-
-            const usuarioGuardado =
-                localStorage.getItem("usuarioRakinakuy");
-
-            const sesionActiva =
-                localStorage.getItem("sesionActiva");
-
-            if (avatarGuardado) {
-                document.getElementById("avatarPreview").src =
-                    avatarGuardado;
-
-                document.getElementById("avatarNavbar").src =
-                    avatarGuardado;
-            }
-
-            if (usuarioGuardado && sesionActiva === "true") {
-                document.getElementById("botonSesion").textContent =
-                    "Cerrar sesión";
-            }
-
-        });
-
-
-        // CARGA DE AVATAR
-        const avatarInput =
-            document.getElementById("avatarInput");
-
-        avatarInput.addEventListener("change", function() {
-
-            const archivo = this.files[0];
-
-            if (!archivo) return;
-
-            if (!archivo.type.startsWith("image/")) {
-                alert("Selecciona una imagen válida.");
-                this.value = "";
-                return;
-            }
-
-            const lector = new FileReader();
-
-            lector.onload = function(evento) {
-
-                const imagen = evento.target.result;
-
-                localStorage.setItem("avatarUsuario", imagen);
-
-                document.getElementById("avatarPreview").src =
-                    imagen;
-
-                document.getElementById("avatarNavbar").src =
-                    imagen;
-
-            };
-
-            lector.readAsDataURL(archivo);
-
-        });
-
-
-        // REGISTRO DEL USUARIO
-        document.getElementById("formRegistro")
-        .addEventListener("submit", function(evento) {
-
-            evento.preventDefault();
-
-            const nombre =
-                document.getElementById("nombreUsuario").value;
-
-            const correo =
-                document.getElementById("correoUsuario").value;
-
-            localStorage.setItem("usuarioRakinakuy", JSON.stringify({
-                nombre: nombre,
-                correo: correo
-            }));
-
-            localStorage.setItem("sesionActiva", "true");
-
-            document.getElementById("botonSesion").textContent =
-                "Cerrar sesión";
-
-            document.getElementById("mensajeRegistro").textContent =
-                "¡Bienvenido/a a Rakinakuy, " + nombre + "!";
-
-        });
-
-
-        // CERRAR SESIÓN
-        function cerrarSesion() {
-
-            const sesionActiva =
-                localStorage.getItem("sesionActiva");
-
-            if (sesionActiva === "true") {
-
-                localStorage.setItem("sesionActiva", "false");
-
-                document.getElementById("botonSesion").textContent =
-                    "Iniciar sesión";
-
-                document.getElementById("mensajeRegistro").textContent =
-                    "Has cerrado tu sesión.";
-
-            } else {
-
-                document.getElementById("registro").scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-
-
-        // RECETAS
-        const recetas = {
-
-            "ensalada-huerto": {
-                titulo: "Ensalada de huerto",
-                descripcion:
-                    "Una ensalada fresca preparada con ingredientes naturales del huerto."
-            },
-
-            "ensalada-primavera": {
-                titulo: "Ensalada Primavera",
-                descripcion:
-                    "Una combinación colorida de vegetales frescos y saludables."
-            }
-
-        };
-
-
-        // ABRIR RECETA
-        document.querySelectorAll(".boton-receta")
-        .forEach(function(boton) {
-
-            boton.addEventListener("click", function() {
-
-                const recetaSeleccionada =
-                    this.dataset.receta;
-
-                const receta = recetas[recetaSeleccionada];
-
-                document.getElementById("tituloModal").textContent =
-                    receta.titulo;
-
-                document.getElementById("descripcionModal").textContent =
-                    receta.descripcion;
-
-                document.getElementById("modalReceta").style.display =
-                    "flex";
-
-            });
-
-        });
-
-
-        // CERRAR MODAL
-        document.getElementById("cerrarModal")
-        .addEventListener("click", function() {
-
-            document.getElementById("modalReceta").style.display =
-                "none";
-
-        });
-
-        document.getElementById("modalReceta")
-        .addEventListener("click", function(evento) {
-
-            if (evento.target === this) {
-                this.style.display = "none";
-            }
-
-        });
-
-    </script>
-
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- ===================== R-3. INICIO – BANNER PRINCIPAL ===================== -->
+<section class="banner" aria-label="Banner principal">
+  <div class="banner-content">
+    <h1>Descubre tu nueva vida saludable</h1>
+    <p>Encuentra productos a precios justos</p>
+    <a class="btn" href="#autenticacion">Iniciar sesión/Registrarse</a>
+  </div>
+</section>
+
+<!-- ===================== R-8. INICIO – RECETAS DESTACADAS ===================== -->
+<section class="block" id="recetas">
+  <h2 class="section-title">Encuentra Recetas</h2>
+  <div class="featured-grid">
+    <article class="blob">
+      <img src="images/ensalada1.png" alt="Ensalada de huerto">
+      <div class="caption">
+        <h3>Ensalada<br>de huerto</h3>
+        <button class="btn btn-white" data-recipe="huerto">Ver receta</button>
+      </div>
+    </article>
+    <article class="blob">
+      <img src="images/ensalada2.png" alt="Ensalada Primavera">
+      <div class="caption">
+        <h3>Ensalada<br>Primavera</h3>
+        <button class="btn btn-white" data-recipe="primavera">Ver receta</button>
+      </div>
+    </article>
+  </div>
+  <div class="center"><a class="btn" href="#galeria">Ver más Recetas</a></div>
+</section>
+
+<!-- ===================== R-02. REGISTRO – CARGA DE AVATAR ===================== -->
+<section class="block" id="autenticacion">
+  <div class="avatar-up">
+    <div class="circle" id="avatarCircle">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>
+    </div>
+    <label for="avatarInput" title="Subir avatar" aria-label="Subir avatar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M5 20h14"/></svg>
+    </label>
+    <input type="file" id="avatarInput" accept="image/*">
+  </div>
+</section>
+
+<!-- ===================== R-30. GALERÍA – RECETAS DE LA COMUNIDAD ===================== -->
+<section class="block" id="galeria">
+  <h2 class="section-title">Recetas por la comunidad</h2>
+  <div class="community-grid" id="communityGrid"></div>
+  <div class="center">
+    <button class="btn" id="moreBtn" type="button">Ver más Recetas</button>
+    <p class="more-msg" id="moreMsg" role="status"></p>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== R-11. INICIO – PIE DE PÁGINA ===================== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#inicio" class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10H3z"/><path d="M12 17c-2-2-2-4 0-6 2 2 2 4 0 6z"/></svg>
+        Rakinakuy
+      </a>
+      <p class="tag">Alimentos saludables hasta casa</p>
+    </div>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="compra.html">Compra</a></li>
+      <li><a href="mapa.html">Mapa</a></li>
+      <li><a href="#recetas">Recetas</a></li>
+    </ul>
+    <ul>
+      <li><a href="quienes-somos.html">Quiénes somos</a></li>
+      <li><a href="soy-productor.html">Soy productor</a></li>
+      <li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+    </ul>
+    <div class="redes">
+      <h4>Redes</h4>
+      <div class="social">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.3 6a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 17.3 6z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M16.5 2h-3.2v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.1 6.1 0 1 0 5.2 6V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.8z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal de preparación -->
+<dialog id="recipeModal">
+  <h3 id="rmTitle"></h3>
+  <img id="rmImg" alt="">
+  <p class="note">Contenido de ejemplo: reemplaza con la preparación real de cada receta.</p>
+  <ol id="rmSteps"></ol>
+  <button class="btn" type="button" id="rmClose">Cerrar</button>
+</dialog>
+
+<script>
+/* ============ Recetas ============ */
+// Cambia aquí el nombre de archivo de cada imagen si alguna no coincide con su tarjeta.
+const stepsBase = [
+  'Lava y prepara todos los ingredientes frescos.',
+  'Corta y mezcla según el gusto.',
+  'Sirve de inmediato y disfruta.'
+];
+const featured = {
+  huerto:    {title:'Ensalada de huerto', img:'images/ensalada1.png'},
+  primavera: {title:'Ensalada Primavera', img:'images/ensalada2.png'}
+};
+const community = [
+  {title:'Ensalada con Frutos Rojos', img:'images/frambuesa.png'},
+  {title:'Banana Split',              img:'images/platano.png'},
+  {title:'Jugo de naranja',           img:'images/jugo.png'},
+  {title:'Green Juice',               img:'images/verde.png'},
+  {title:'Helado de Maracuyá',        img:'images/mango.png'},
+  {title:'Ensalada Piamontesa',       img:'images/naranja.png'}
+];
+
+const grid = document.getElementById('communityGrid');
+community.forEach((r,i)=>{
+  const el = document.createElement('article');
+  el.className = 'rc';
+  el.innerHTML = `<img src="${r.img}" alt="${r.title}">
+    <div class="caption"><h3>${r.title}</h3></div>
+    <button class="btn btn-white" data-community="${i}">Ver receta</button>`;
+  grid.appendChild(el);
+});
+
+const modal = document.getElementById('recipeModal');
+function openRecipe(r){
+  document.getElementById('rmTitle').textContent = r.title;
+  const img = document.getElementById('rmImg'); img.src = r.img; img.alt = r.title;
+  document.getElementById('rmSteps').innerHTML = stepsBase.map(s=>`<li>${s}</li>`).join('');
+  modal.showModal();
+}
+document.addEventListener('click', e=>{
+  const f = e.target.closest('[data-recipe]');
+  if(f) openRecipe(featured[f.dataset.recipe]);
+  const c = e.target.closest('[data-community]');
+  if(c) openRecipe(community[+c.dataset.community]);
+});
+document.getElementById('rmClose').onclick = ()=>modal.close();
+modal.addEventListener('click', e=>{ if(e.target===modal) modal.close(); });
+
+document.getElementById('moreBtn').onclick = ()=>{
+  // Punto de conexión: aquí se cargarían más recetas de la comunidad (API o página aparte).
+  document.getElementById('moreMsg').textContent = 'Pronto verás más recetas de la comunidad.';
+};
+
+/* ============ Avatar (R-02) + sesión persistente (R-11 Login) ============ */
+const KEY = 'rakinakuy_session';
+const avatarInput  = document.getElementById('avatarInput');
+const avatarCircle = document.getElementById('avatarCircle');
+const navAvatar = document.getElementById('navAvatar');
+const defaultNavIcon = navAvatar.innerHTML;
+
+function secureToken(){
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);                       // aleatorio criptográficamente seguro
+  return Array.from(bytes, b=>b.toString(16).padStart(2,'0')).join('');
+}
+function renderSession(){
+  let s = null;
+  try{ s = JSON.parse(localStorage.getItem(KEY)); }catch(e){}
+  if(s && s.token && s.avatar){
+    navAvatar.innerHTML = `<img src="${s.avatar}" alt="Perfil">`;
+    avatarCircle.innerHTML = `<img src="${s.avatar}" alt="Avatar">`;
+  }
+}
+avatarInput.addEventListener('change', ()=>{
+  const file = avatarInput.files[0];
+  if(!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    const session = {token:secureToken(), avatar:reader.result};
+    try{ localStorage.setItem(KEY, JSON.stringify(session)); }catch(e){}
+    avatarCircle.innerHTML = `<img src="${reader.result}" alt="Avatar seleccionado">`;
+    navAvatar.innerHTML = `<img src="${reader.result}" alt="Perfil">`;
+  };
+  reader.readAsDataURL(file);
+});
+renderSession();
+</script>
 </body>
 </html>
