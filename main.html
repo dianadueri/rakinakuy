@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakinakuy - Inicio</title>
+    <title>Rakinakuy</title>
 
     <style>
         * {
@@ -14,396 +14,382 @@
         }
 
         body {
-            background-color: #F3E8CC;
             font-family: Arial, sans-serif;
+            background: #f7efcf;
+            color: #194d2d;
         }
 
-        /* BANNER PRINCIPAL */
+        header {
+            background: #14532d;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
 
-        .banner {
-            position: relative;
-            width: 100%;
-            min-height: 600px;
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav {
             display: flex;
             align-items: center;
-            padding: 8%;
-            overflow: hidden;
+            gap: 25px;
         }
 
-        .banner img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .contenido {
-            position: relative;
-            z-index: 1;
-            max-width: 520px;
-            color: #185B35;
-        }
-
-        .contenido h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .contenido p {
-            font-size: 21px;
-            margin-bottom: 30px;
-        }
-
-        .boton {
-            display: inline-block;
-            background-color: #185B35;
+        nav a {
             color: white;
-            padding: 15px 28px;
-            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
         }
 
-        /* SECCIÓN ENCUENTRA RECETAS */
-
-        .recetas {
-            width: 100%;
-            padding: 45px 20px;
-            background-color: #F3E8CC;
-            text-align: center;
+        .nav-derecha {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .recetas h2 {
-            color: #185B35;
-            font-family: Georgia, serif;
-            font-size: 36px;
+        .avatar-navbar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #c4d600;
+            cursor: pointer;
+        }
+
+        .boton-sesion {
+            background: #c4d600;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 45px 8%;
+        }
+
+        .titulo-seccion {
+            text-align: center;
             margin-bottom: 30px;
         }
 
-        .contenedor-recetas {
+        .titulo-seccion h1 {
+            font-size: 32px;
+            color: #27643b;
+            margin-bottom: 10px;
+        }
+
+        .recetas-extra {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 25px;
             flex-wrap: wrap;
         }
 
         .tarjeta-receta {
+            width: 280px;
+            height: 200px;
+            border-radius: 45px;
+            overflow: hidden;
             position: relative;
-            width: 350px;
-            height: 260px;
+            background: #ddd;
         }
 
         .tarjeta-receta img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            display: block;
+            object-fit: cover;
         }
-
-        /* TEXTO ENCIMA DE LAS IMÁGENES */
 
         .texto-receta {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
+            inset: 0;
+            background: linear-gradient(
+                transparent,
+                rgba(0, 0, 0, 0.75)
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 20px;
             color: white;
-            text-align: center;
         }
 
         .texto-receta h3 {
-            font-family: Georgia, serif;
-            font-size: 27px;
-            font-weight: bold;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            text-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+            font-size: 21px;
+            margin-bottom: 12px;
         }
-
-        /* BOTÓN VER RECETA */
 
         .boton-receta {
-            display: inline-block;
-            background-color: white;
-            color: #185B35;
-            padding: 9px 22px;
+            background: white;
+            color: #14532d;
+            border: none;
+            padding: 9px 20px;
             border-radius: 5px;
-            text-decoration: none;
-            font-size: 13px;
             font-weight: bold;
+            cursor: pointer;
         }
-
-        /* BOTÓN VER MÁS RECETAS */
-
-        .boton-mas {
-            display: inline-block;
-            margin-top: 30px;
-            background-color: #185B35;
-            color: white;
-            padding: 12px 45px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        /* EFECTOS DE LOS BOTONES */
 
         .boton-receta:hover {
-            background-color: #E8E8E8;
+            background: #c4d600;
         }
 
-        .boton-mas:hover,
-        .boton:hover {
-            background-color: #124529;
-        }
-
-
-        /* =================================
-           PIE DE PÁGINA - R-11
-        ================================= */
-
-        .footer {
-            width: 100%;
-            min-height: 185px;
-            background-color: #185B35;
+        .ver-mas {
+            display: block;
+            margin: 25px auto;
+            background: #14532d;
             color: white;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 30px 5%;
-            gap: 25px;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
-        /* LOGOTIPO */
-
-        .footer-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .contenedor-registro {
+            margin: 70px auto;
+            max-width: 450px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
-        .footer-marca {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .contenedor-registro h2 {
+            margin-bottom: 25px;
+            color: #14532d;
         }
 
-        .footer-marca h2 {
-            font-size: 24px;
-            font-weight: bold;
+        .avatar-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            position: relative;
         }
 
-        .footer-icono {
-            width: 25px;
-            height: 25px;
+        .avatar-preview {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #14532d;
+            background: white;
         }
 
-        .footer-logo p {
-            font-size: 13px;
-            line-height: 1.4;
-            margin-top: 8px;
-        }
-
-        /* ENLACES */
-
-        .footer-enlaces {
-            display: flex;
-            gap: 65px;
-            align-items: flex-start;
-        }
-
-        .footer-columna {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .footer-columna a {
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: #14532d;
             color: white;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            text-align: center;
-            transition: opacity 0.3s;
-        }
-
-        .footer-columna a:hover {
-            opacity: 0.7;
-        }
-
-        /* REDES SOCIALES */
-
-        .footer-redes {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .footer-redes h3 {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .iconos-redes {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .iconos-redes a {
-            color: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.3s;
+            font-size: 23px;
+            cursor: pointer;
         }
 
-        .iconos-redes a:hover {
-            opacity: 0.7;
+        .contenedor-registro input[type="text"],
+        .contenedor-registro input[type="email"],
+        .contenedor-registro input[type="password"] {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
 
-        .iconos-redes svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+        .boton-principal {
+            width: 100%;
+            padding: 13px;
+            background: #14532d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
+        .boton-principal:hover {
+            background: #27643b;
+        }
 
-        /* DISEÑO RESPONSIVE */
+        .mensaje {
+            margin-top: 15px;
+            color: #14532d;
+            font-size: 14px;
+        }
 
-        @media (max-width: 700px) {
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+        }
 
-            .banner {
-                min-height: 500px;
+        .modal-contenido {
+            background: #f7efcf;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-contenido h2 {
+            margin-bottom: 15px;
+            color: #14532d;
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            border: none;
+            background: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #14532d;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        @media (max-width: 650px) {
+            header {
+                flex-wrap: wrap;
+                gap: 15px;
             }
 
-            .contenido h1 {
-                font-size: 34px;
+            nav {
+                gap: 12px;
+                flex-wrap: wrap;
             }
 
-            .contenido p {
-                font-size: 17px;
-            }
-
-            .recetas {
-                padding: 40px 15px;
-            }
-
-            .recetas h2 {
-                font-size: 29px;
-            }
-
-            .contenedor-recetas {
-                gap: 20px;
+            main {
+                padding: 35px 5%;
             }
 
             .tarjeta-receta {
                 width: 100%;
-                max-width: 350px;
-                height: 250px;
-            }
-
-            .texto-receta h3 {
-                font-size: 24px;
-            }
-
-            /* FOOTER RESPONSIVE */
-
-            .footer {
-                flex-direction: column;
-                padding: 35px 20px;
-                gap: 30px;
-            }
-
-            .footer-enlaces {
-                gap: 30px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .footer-columna a {
-                font-size: 12px;
+                max-width: 320px;
             }
         }
-
     </style>
 </head>
 
 <body>
 
-    <main>
+    <!-- NAVEGACIÓN -->
+    <header>
 
-        <!-- BANNER PRINCIPAL -->
+        <div class="logo">RAKINAKUY</div>
 
-        <section class="banner">
+        <nav>
+            <a href="#inicio">INICIO</a>
+            <a href="#recetas">RECETAS</a>
+            <a href="#registro">REGISTRO</a>
+        </nav>
 
-            <img src="images/banner.png" alt="Banner de Rakinakuy">
+        <div class="nav-derecha">
 
-            <div class="contenido">
+            <img
+                id="avatarNavbar"
+                class="avatar-navbar"
+                src="images/avatar-default.png"
+                alt="Avatar del usuario"
+                title="Mi perfil"
+            >
 
-                <h1>Descubre tu nueva vida saludable</h1>
+            <button
+                class="boton-sesion"
+                id="botonSesion"
+                type="button"
+                onclick="cerrarSesion()"
+            >
+                Iniciar sesión
+            </button>
 
-                <p>Encuentra productos a precios justos</p>
+        </div>
 
-                <a href="#autenticacion" class="boton">
-                    Iniciar sesión / Registrarse
-                </a>
+    </header>
 
+
+    <!-- INICIO -->
+    <main id="inicio">
+
+        <!-- RECETAS DESTACADAS -->
+        <section id="recetas">
+
+            <div class="titulo-seccion">
+                <h1>Encuentra Recetas</h1>
+                <p>Descubre nuevas recetas para compartir.</p>
             </div>
 
-        </section>
+            <div class="recetas-extra" id="recetasExtra">
 
-
-        <!-- SECCIÓN ENCUENTRA RECETAS -->
-
-        <section class="recetas" id="recetas">
-
-            <h2>Encuentra Recetas</h2>
-
-            <div class="contenedor-recetas">
-
-                <!-- PRIMERA RECETA -->
-
+                <!-- ENSALADA DE HUERTO -->
                 <article class="tarjeta-receta">
 
-                    <img src="images/ensalada1.png"
-                         alt="Ensalada de huerto">
+                    <img
+                        src="images/ensalada1.png"
+                        alt="Ensalada de huerto"
+                    >
 
                     <div class="texto-receta">
 
-                        <h3>Ensalada<br>de huerto</h3>
+                        <h3>Ensalada de huerto</h3>
 
-                        <a href="#" class="boton-receta">
+                        <button
+                            class="boton-receta"
+                            type="button"
+                            data-receta="ensalada-huerto"
+                        >
                             Ver receta
-                        </a>
+                        </button>
 
                     </div>
 
                 </article>
 
 
-                <!-- SEGUNDA RECETA -->
-
+                <!-- ENSALADA PRIMAVERA -->
                 <article class="tarjeta-receta">
 
-                    <img src="images/ensalada2.png"
-                         alt="Ensalada Primavera">
+                    <img
+                        src="images/ensalada2.png"
+                        alt="Ensalada Primavera"
+                    >
 
                     <div class="texto-receta">
 
-                        <h3>Ensalada<br>Primavera</h3>
+                        <h3>Ensalada Primavera</h3>
 
-                        <a href="#" class="boton-receta">
+                        <button
+                            class="boton-receta"
+                            type="button"
+                            data-receta="ensalada-primavera"
+                        >
                             Ver receta
-                        </a>
+                        </button>
 
                     </div>
 
@@ -411,162 +397,306 @@
 
             </div>
 
-            <!-- BOTÓN VER MÁS RECETAS -->
-
-            <a href="#" class="boton-mas">
+            <button class="ver-mas" type="button">
                 Ver más Recetas
-            </a>
+            </button>
 
         </section>
 
 
-        <!-- AUTENTICACIÓN -->
+        <!-- REGISTRO Y CARGA DE AVATAR -->
+        <section id="registro">
 
-        <section id="autenticacion"></section>
+            <div class="contenedor-registro">
+
+                <h2>Mi perfil</h2>
+
+                <!-- AVATAR -->
+                <div class="avatar-container">
+
+                    <img
+                        id="avatarPreview"
+                        class="avatar-preview"
+                        src="images/avatar-default.png"
+                        alt="Foto de perfil"
+                    >
+
+                    <label
+                        for="avatarInput"
+                        class="avatar-upload"
+                        title="Subir fotografía"
+                    >
+                        ↑
+                    </label>
+
+                </div>
+
+                <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    hidden
+                >
+
+                <p>Selecciona una fotografía para tu perfil.</p>
+
+                <br>
+
+                <!-- DATOS DEL USUARIO -->
+                <form id="formRegistro">
+
+                    <input
+                        type="text"
+                        id="nombreUsuario"
+                        placeholder="Nombre completo"
+                        required
+                    >
+
+                    <input
+                        type="email"
+                        id="correoUsuario"
+                        placeholder="Correo electrónico"
+                        required
+                    >
+
+                    <input
+                        type="password"
+                        id="passwordUsuario"
+                        placeholder="Contraseña"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="boton-principal"
+                    >
+                        Crear cuenta
+                    </button>
+
+                </form>
+
+                <p id="mensajeRegistro" class="mensaje"></p>
+
+            </div>
+
+        </section>
 
     </main>
 
 
-    <!-- =================================
-         PIE DE PÁGINA - R-11
-    ================================= -->
+    <!-- MODAL DE RECETAS -->
+    <div class="modal" id="modalReceta">
 
-    <footer class="footer">
+        <div class="modal-contenido">
 
-        <!-- LOGOTIPO RAKINAKUY -->
+            <button
+                class="cerrar-modal"
+                type="button"
+                id="cerrarModal"
+            >
+                ×
+            </button>
 
-        <div class="footer-logo">
+            <h2 id="tituloModal"></h2>
 
-            <div class="footer-marca">
-
-                <svg class="footer-icono"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="white"
-                     stroke-width="2.5"
-                     stroke-linecap="round"
-                     stroke-linejoin="round">
-
-                    <path d="M3 10 L12 3 L21 10 V21 H3 Z"/>
-                    <path d="M9 21 V13 H15 V21"/>
-                    <path d="M7 10 H17"/>
-
-                </svg>
-
-                <h2>Rakinakuy</h2>
-
-            </div>
-
-            <p>Alimentos saludables<br>hasta casa</p>
+            <p id="descripcionModal"></p>
 
         </div>
 
-
-        <!-- PRIMERA COLUMNA DE ENLACES -->
-
-        <div class="footer-enlaces">
-
-            <div class="footer-columna">
-
-                <a href="index.html">INICIO</a>
-                <a href="compra.html">COMPRA</a>
-                <a href="mapa.html">MAPA</a>
-                <a href="#recetas">RECETAS</a>
-
-            </div>
+    </div>
 
 
-            <!-- SEGUNDA COLUMNA DE ENLACES -->
-
-            <div class="footer-columna">
-
-                <a href="quienes-somos.html">QUIENES SOMOS</a>
-
-                <a href="soy-productor.html">SOY PRODUCTOR</a>
-
-                <a href="preguntas-frecuentes.html">
-                    PREGUNTAS FRECUENTES
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <!-- REDES SOCIALES -->
-
-        <div class="footer-redes">
-
-            <h3>REDES</h3>
-
-            <div class="iconos-redes">
-
-                <!-- FACEBOOK -->
-
-                <a href="https://www.facebook.com/"
-                   target="_blank"
-                   aria-label="Facebook">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M24 12.07C24 5.4 18.63 0 12 0S0
-                        5.4 0 12.07C0 18.1 4.39 23.1 10.13
-                        24v-8.44H7.08v-3.49h3.05V9.4c0-3.03
-                        1.79-4.71 4.53-4.71 1.31 0 2.68.24
-                        2.68.24v2.96h-1.51c-1.49 0-1.95.93
-                        -1.95 1.88v2.3h3.32l-.53 3.49h-2.79V24
-                        C19.61 23.1 24 18.1 24 12.07Z"/>
-                    </svg>
-
-                </a>
-
-
-                <!-- INSTAGRAM -->
-
-                <a href="https://www.instagram.com/"
-                   target="_blank"
-                   aria-label="Instagram">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 2C4.24 2 2 4.24 2 7v10c0
-                        2.76 2.24 5 5 5h10c2.76 0 5-2.24
-                        5-5V7c0-2.76-2.24-5-5-5H7Zm0 2h10
-                        c1.66 0 3 1.34 3 3v10c0 1.66-1.34
-                        3-3 3H7c-1.66 0-3-1.34-3-3V7c0
-                        -1.66 1.34-3 3-3Zm11 1.5a1.5
-                        1.5 0 1 0 0 3 1.5 1.5 0 0 0
-                        0-3ZM12 7a5 5 0 1 0 0 10
-                        5 5 0 0 0 0-10Zm0 2a3 3 0 1 1
-                        0 6 3 3 0 0 1 0-6Z"/>
-                    </svg>
-
-                </a>
-
-
-                <!-- TIKTOK -->
-
-                <a href="https://www.tiktok.com/"
-                   target="_blank"
-                   aria-label="TikTok">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M19.59 6.69a4.83 4.83 0
-                        0 1-3.77-4.25V2h-3.45v13.67a2.9
-                        2.9 0 0 1-2.9 2.9 2.9 2.9 0
-                        0 1-2.9-2.9 2.9 2.9 0 0
-                        1 2.9-2.9c.3 0 .6.05.9.14V9.4
-                        a6.4 6.4 0 0 0-.9-.06 6.34 6.34
-                        0 1 0 6.34 6.34V8.7a8.2 8.2 0
-                        0 0 4.78 1.53V6.8a4.8 4.8 0
-                        0 1-1-.11Z"/>
-                    </svg>
-
-                </a>
-
-            </div>
-
-        </div>
-
+    <!-- FOOTER -->
+    <footer>
+        <p>RAKINAKUY © 2026 - Compartiendo sabores y comunidad.</p>
     </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // CARGAR INFORMACIÓN GUARDADA
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const avatarGuardado =
+                localStorage.getItem("avatarUsuario");
+
+            const usuarioGuardado =
+                localStorage.getItem("usuarioRakinakuy");
+
+            const sesionActiva =
+                localStorage.getItem("sesionActiva");
+
+            if (avatarGuardado) {
+                document.getElementById("avatarPreview").src =
+                    avatarGuardado;
+
+                document.getElementById("avatarNavbar").src =
+                    avatarGuardado;
+            }
+
+            if (usuarioGuardado && sesionActiva === "true") {
+                document.getElementById("botonSesion").textContent =
+                    "Cerrar sesión";
+            }
+
+        });
+
+
+        // CARGA DE AVATAR
+        const avatarInput =
+            document.getElementById("avatarInput");
+
+        avatarInput.addEventListener("change", function() {
+
+            const archivo = this.files[0];
+
+            if (!archivo) return;
+
+            if (!archivo.type.startsWith("image/")) {
+                alert("Selecciona una imagen válida.");
+                this.value = "";
+                return;
+            }
+
+            const lector = new FileReader();
+
+            lector.onload = function(evento) {
+
+                const imagen = evento.target.result;
+
+                localStorage.setItem("avatarUsuario", imagen);
+
+                document.getElementById("avatarPreview").src =
+                    imagen;
+
+                document.getElementById("avatarNavbar").src =
+                    imagen;
+
+            };
+
+            lector.readAsDataURL(archivo);
+
+        });
+
+
+        // REGISTRO DEL USUARIO
+        document.getElementById("formRegistro")
+        .addEventListener("submit", function(evento) {
+
+            evento.preventDefault();
+
+            const nombre =
+                document.getElementById("nombreUsuario").value;
+
+            const correo =
+                document.getElementById("correoUsuario").value;
+
+            localStorage.setItem("usuarioRakinakuy", JSON.stringify({
+                nombre: nombre,
+                correo: correo
+            }));
+
+            localStorage.setItem("sesionActiva", "true");
+
+            document.getElementById("botonSesion").textContent =
+                "Cerrar sesión";
+
+            document.getElementById("mensajeRegistro").textContent =
+                "¡Bienvenido/a a Rakinakuy, " + nombre + "!";
+
+        });
+
+
+        // CERRAR SESIÓN
+        function cerrarSesion() {
+
+            const sesionActiva =
+                localStorage.getItem("sesionActiva");
+
+            if (sesionActiva === "true") {
+
+                localStorage.setItem("sesionActiva", "false");
+
+                document.getElementById("botonSesion").textContent =
+                    "Iniciar sesión";
+
+                document.getElementById("mensajeRegistro").textContent =
+                    "Has cerrado tu sesión.";
+
+            } else {
+
+                document.getElementById("registro").scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+
+
+        // RECETAS
+        const recetas = {
+
+            "ensalada-huerto": {
+                titulo: "Ensalada de huerto",
+                descripcion:
+                    "Una ensalada fresca preparada con ingredientes naturales del huerto."
+            },
+
+            "ensalada-primavera": {
+                titulo: "Ensalada Primavera",
+                descripcion:
+                    "Una combinación colorida de vegetales frescos y saludables."
+            }
+
+        };
+
+
+        // ABRIR RECETA
+        document.querySelectorAll(".boton-receta")
+        .forEach(function(boton) {
+
+            boton.addEventListener("click", function() {
+
+                const recetaSeleccionada =
+                    this.dataset.receta;
+
+                const receta = recetas[recetaSeleccionada];
+
+                document.getElementById("tituloModal").textContent =
+                    receta.titulo;
+
+                document.getElementById("descripcionModal").textContent =
+                    receta.descripcion;
+
+                document.getElementById("modalReceta").style.display =
+                    "flex";
+
+            });
+
+        });
+
+
+        // CERRAR MODAL
+        document.getElementById("cerrarModal")
+        .addEventListener("click", function() {
+
+            document.getElementById("modalReceta").style.display =
+                "none";
+
+        });
+
+        document.getElementById("modalReceta")
+        .addEventListener("click", function(evento) {
+
+            if (evento.target === this) {
+                this.style.display = "none";
+            }
+
+        });
+
+    </script>
 
 </body>
 </html>
